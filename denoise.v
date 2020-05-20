@@ -8,11 +8,13 @@ module denoise(
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
 	input			valid_in,
 	input	[2:0]	color_in,
-	input			last_in,
+	input			last_col_in,
+	input			last_pic_in,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output			valid_out,
 	output  [2:0]	color_out,
-	output			last_out
+	output			last_col_out,
+	output			last_pic_out
 );
 
 
@@ -32,15 +34,18 @@ localparam VOID		= 2'd3;
 reg	[`COLOR_DEPTH-1:0]	pixel_in_reg;
 reg						valid_in_reg;
 reg	[2:0]				color_in_reg;
-reg						last_in_reg;
+reg						last_col_in_reg;
+reg						last_pic_in_reg;
 reg	[`COLOR_DEPTH-1:0]	pixel_out_reg, n_pixel_out_reg;
 reg						valid_out_reg, n_valid_out_reg;
 reg	[2:0]				color_out_reg, n_color_out_reg;
-reg						last_out_reg, n_last_out_reg;
+reg						last_col_out_reg, n_last_col_out_reg;
+reg						last_pic_out_reg, n_last_pic_out_reg;
 assign pixel_out = pixel_out_reg;
 assign valid_out = valid_out_reg;
 assign color_out = color_out_reg;
-assign last_out = last_out_reg;
+assign last_col_out = last_col_out_reg;
+assign last_pic_out = last_pic_out_reg;
 
 
 integer i;
@@ -81,7 +86,8 @@ reg [2:0]				counter_0, n_counter_0;
 //pipeline stage1
 
 reg [2:0]				state_1, n_state_1;
-reg 					last_1, n_last_1;
+reg 					last_col_1, n_last_col_1;
+reg 					last_pic_1, n_last_pic_1;
 reg [2:0]				color_1, n_color_1;
 reg						init_12_last_flag, n_init_12_last_flag;
 reg [2:0]				counter_1, n_counter_1;
@@ -94,7 +100,8 @@ reg [`COLOR_DEPTH+1:0]	sum6, n_sum6;
 
 //pipeline stage2
 reg [2:0]				state_2, n_state_2;
-reg 					last_2, n_last_2;
+reg 					last_col_2, n_last_col_2;
+reg 					last_pic_2, n_last_pic_2;
 reg [2:0]				color_2, n_color_2;
 reg [`COLOR_DEPTH+3:0]  sum9, n_sum9;
 reg [`COLOR_DEPTH+3:0]  new_sum6, n_new_sum6;
@@ -116,7 +123,7 @@ always@(*) begin
 			n_counter_0 = valid_count_0 == 2'd2 && valid_in_reg  ?  counter_0 + 1 : counter_0;
 		end
 		OUT: begin
-			n_state_0 = valid_count_0 == 2'd2 && valid_in_reg && counter_0 == 3'd5 ? (last_1 ? INIT_12 : INIT_2) : state_0;
+			n_state_0 = valid_count_0 == 2'd2 && valid_in_reg && counter_0 == 3'd5 ? (last_col_1 ? INIT_12 : INIT_2) : state_0;
 			n_counter_0 = valid_count_0 == 2'd2 && valid_in_reg ? (counter_0 == 3'd5 ? 4'd0 : counter_0 + 1) : counter_0;
 		end
 	endcase
@@ -133,7 +140,8 @@ end
 //stage1 pipeline combinational
 always@(*) begin
 	n_state_1 = state_0;
-	n_last_1 = last_1;
+	n_last_col_1 = last_col_1;
+	n_last_pic_1 = last_pic_1;
 	n_color_1 = color_1;
 	n_counter_1 = counter_0;
 	n_pos9 = pos9;
@@ -175,19 +183,22 @@ always@(*) begin
 		end
 	endcase
 
-	if(last_in_reg)
-		n_last_1 = 1'b1;
-	else begin
-		n_last_1 = last_1;
-		if(valid_count_0 == 2'd1)
-			n_last_1 = 1'b0;
-	end
+	n_last_col_1 = last_col_in_reg;
+	n_last_pic_1 = last_pic_in_reg;
+	/* if(last_col_in_reg) */
+	/* 	n_last_col_1 = 1'b1; */
+	/* else begin */
+	/* 	n_last_col_1 = last_col_1; */
+	/* 	if(valid_count_0 == 2'd1) */
+	/* 		n_last_col_1 = 1'b0; */
+	/* end */
 end
 	
 //stage2 pipeline combinational
 always@(*) begin
 	n_state_2 = state_1;
-	n_last_2 = last_1;
+	n_last_col_2 = last_col_1;
+	n_last_pic_2 = last_pic_1;
 	n_color_2 = color_1;
 	n_new_sum6 = {2'b00,pos7} + {2'b00,pos8} + {2'b00,pos9};
 	n_sum9 = {2'b00, n_new_sum6} + {4'b0000, sum3} + {4'b0000, sum6};
@@ -232,7 +243,8 @@ always@(*) begin
 	n_pixel_out_reg = sum9/9;
 	n_valid_out_reg = 1'b0;
 	n_color_out_reg = VOID;
-	n_last_out_reg = last_2;
+	n_last_col_out_reg = last_col_2;
+	n_last_pic_out_reg = last_pic_2;
 	if(state_2 == OUT) begin
 		case(color_2)
 			RED: begin
@@ -279,11 +291,13 @@ always@(posedge clk or posedge rst) begin
 		pixel_in_reg  <= 0; 
 		valid_in_reg  <= 0; 
 		color_in_reg  <= 0; 
-		last_in_reg   <= 0; 
+		last_col_in_reg   <= 0; 
+		last_pic_in_reg   <= 0; 
 		pixel_out_reg <= 0; 
 		valid_out_reg <= 0; 
 		color_out_reg <= 0; 
-		last_out_reg  <= 0; 
+		last_col_out_reg  <= 0; 
+		last_pic_out_reg  <= 0; 
 		for(i=0 ; i<`INPUT_ROW_COUNT; i=i+1) begin
 			first_col_r[i]	<= 0; 
 			first_col_g[i] 	<= 0; 
@@ -305,7 +319,8 @@ always@(posedge clk or posedge rst) begin
 		counter_0   		 	<= 0;
 		
 		state_1   				<= INIT_12;
-		last_1   				<= 0;
+		last_col_1   				<= 0;
+		last_pic_1   				<= 0;
 		color_1   				<= RED;
 		init_12_last_flag   	<= 0;
 		counter_1   		 	<= 0;
@@ -317,7 +332,8 @@ always@(posedge clk or posedge rst) begin
 		sum6    				<= 0;
 
 		state_2 	<= INIT_12; 
-		last_2 		<= 0; 
+		last_col_2 		<= 0; 
+		last_pic_2 		<= 0; 
 		color_2 	<= VOID; 
 		sum9 		<= 0; 
 		new_sum6	<= 0; 
@@ -326,11 +342,13 @@ always@(posedge clk or posedge rst) begin
 		pixel_in_reg  <= pixel_in;
 		valid_in_reg  <= valid_in;
 		color_in_reg  <= color_in;
-		last_in_reg   <= last_in;
+		last_col_in_reg   <= last_col_in;
+		last_pic_in_reg   <= last_pic_in;
 		pixel_out_reg <= n_pixel_out_reg;
 		valid_out_reg <= n_valid_out_reg;
 		color_out_reg <= n_color_out_reg;
-		last_out_reg  <= n_last_out_reg;
+		last_col_out_reg  <= n_last_col_out_reg;
+		last_pic_out_reg  <= n_last_pic_out_reg;
 
 		for(i=0 ; i<`INPUT_ROW_COUNT; i=i+1) begin
 			first_col_r[i]	<= n_first_col_r[i]; 
@@ -353,7 +371,8 @@ always@(posedge clk or posedge rst) begin
 		counter_0   		 	<= n_counter_0;
 
 		state_1   				<= n_state_1;
-		last_1   				<= n_last_1;
+		last_col_1   			<= n_last_col_1;
+		last_pic_1   			<= n_last_pic_1;
 		color_1   				<= n_color_1;
 		init_12_last_flag   	<= n_init_12_last_flag;
 		counter_1   		 	<= n_counter_1;
@@ -365,7 +384,8 @@ always@(posedge clk or posedge rst) begin
 		sum6    				<= n_sum6;
 
 		state_2 	<= n_state_2;
-		last_2 		<= n_last_2;
+		last_col_2 		<= n_last_col_2;
+		last_pic_2 		<= n_last_pic_2;
 		color_2 	<= n_color_2;
 		sum9 		<= n_sum9;
 		new_sum6	<= n_new_sum6;

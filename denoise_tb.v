@@ -17,16 +17,16 @@ module denoise_tb;
 	reg [`COLOR_DEPTH-1:0]	pixel_in;
 	reg			valid_in;
 	reg	[2:0]	color_in;
-	reg			last_in;
+	reg			last_col_in;
 	wire 	[`COLOR_DEPTH-1:0]	pixel_out;
 	wire			valid_out;
 	wire  [2:0]	color_out;
-	wire			last_out;
+	wire			last_col_out;
 
 	integer dumb, cnt, error, finished, input_pat, golden_pat,output_cnt, color, i;
 
-	denoise dn(.clk(clk), .rst(rst), .pixel_in(pixel_in), .valid_in(valid_in), .color_in(color_in), .last_in(last_in),
-	.pixel_out(pixel_out), .valid_out(valid_out), .color_out(color_out), .last_out(last_out));
+	denoise dn(.clk(clk), .rst(rst), .pixel_in(pixel_in), .valid_in(valid_in), .color_in(color_in), .last_col_in(last_col_in),
+	.pixel_out(pixel_out), .valid_out(valid_out), .color_out(color_out), .last_col_out(last_col_out));
 	reg	[`COLOR_DEPTH-1:0] r_input [0:`INPUT_LENGTH-1];
 	reg	[`COLOR_DEPTH-1:0] g_input [0:`INPUT_LENGTH-1];
 	reg	[`COLOR_DEPTH-1:0] b_input [0:`INPUT_LENGTH-1];
@@ -94,21 +94,21 @@ module denoise_tb;
 				pixel_in = r_input[i];
 				valid_in = 1'b1;
 				color_in = RED;
-				last_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
+				last_col_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
 				#(`CYCLE/2);
 			end
 			@(negedge clk) begin
 				pixel_in = g_input[i];
 				valid_in = 1'b1;
 				color_in = GREEN;
-				last_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
+				last_col_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
 				#(`CYCLE/2);
 			end
 			@(negedge clk) begin
 				pixel_in = b_input[i];
 				valid_in = 1'b1;
 				color_in = BLUE;
-				last_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
+				last_col_in = i == `INPUT_LENGTH -1 ? 1'b1 : 1'b0;
 				#(`CYCLE/2);
 			end
 
@@ -122,7 +122,7 @@ module denoise_tb;
 		while(output_cnt != `OUTPUT_LENGTH) begin
 			@(negedge clk) begin
 				if(valid_out) begin
-					if(last_out !== (output_cnt === `OUTPUT_LENGTH-1)) begin
+					if(last_col_out !== (output_cnt === `OUTPUT_LENGTH-1)) begin
 						error = error+1;
 						$display("\"last\" flag error at pixel %d", output_cnt+1 );
 
