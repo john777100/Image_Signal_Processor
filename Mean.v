@@ -5,6 +5,7 @@ module Mean(
 	color_i,
 	value_i,
 	last_i, //finish signal
+	size_i, //specify images' n (nxn)
 	r_mean_o,
 	g_mean_o,
 	b_mean_o,
@@ -12,10 +13,6 @@ module Mean(
 	color_o,
 	last_o
 	);
-
-	//specify image size
-	parameter SIZE = 4'd10;
-	parameter BITS = 2*SIZE + 8; 
 
 	//specify color
 	localparam RED = 2'd0;
@@ -26,27 +23,68 @@ module Mean(
 	input clk, rst_n, valid_i, last_i;
 	input [1:0] color_i;
 	input [7:0] value_i;
+	input [4:0] size_i;
 
 	output valid_o, last_o;
 	output [1:0] color_o;
 	output [7:0] r_mean_o, g_mean_o, b_mean_o;
 
 	//Input FF
-	reg valid_r, last_r;
+	reg valid_r, last_r, last_w;
 	reg [1:0] color_r;
 	reg [7:0] value_r;
 
-	reg [BITS-1:0] sum_r, sum_g, sum_b;
-	reg [BITS-1:0] sum_r_nxt, sum_g_nxt, sum_b_nxt;
+	reg [27:0] sum_r, sum_g, sum_b;
+	reg [27:0] sum_r_nxt, sum_g_nxt, sum_b_nxt;
 	reg [7:0] r_mean_nxt, g_mean_nxt, b_mean_nxt;
+
+	reg [1:0] last_state_r, last_state_w;
+
+	//specify image size
+	// parameter SIZE = 4'd10;
+	// parameter BITS = 2*size_i + 8; 
 
 	//assignment
 	assign valid_o = valid_r;
 	assign last_o = last_r;
 	assign color_o = color_r;
-	assign r_mean_o = sum_r >> 2*SIZE;
-	assign g_mean_o = sum_g >> 2*SIZE;
-	assign b_mean_o = sum_b >> 2*SIZE;
+	assign r_mean_o = sum_r >> 2*size_i;
+	assign g_mean_o = sum_g >> 2*size_i;
+	assign b_mean_o = sum_b >> 2*size_i;
+
+	//localparam for last signal
+	localparam IDLE = 2'd0;
+	localparam ONE 	= 2'd1;
+	localparam TWO  = 2'd2;
+
+	//FSM for last signal
+	always@(*) begin
+		last_w = last_r;
+		case(last_state_r)
+			IDLE:
+			begin
+				if(last_i == 1'b1) last_state_w = ONE;
+				else last_state_w = IDLE;
+			end
+			ONE:
+			begin
+				if(last_i == 1'b1) last_state_w = TWO;
+				else last_state_w = ONE;
+			end
+			TWO:
+			begin
+				if(last_i == 1'b1) begin
+					last_state_w 	= IDLE;
+					last_w 			= 1'd1;
+				end
+				else last_state_w = TWO;
+			end
+			default:
+			begin
+				last_state_w = last_state_r;
+			end
+		endcase
+	end
 
 	//sequential
 	always@(posedge clk or negedge rst_n) begin
