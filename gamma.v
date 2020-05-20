@@ -4,28 +4,28 @@
 `define WIN_RADIUS 1
 module gamma_22(
 	input			clk,
-	input			rst,
+	input			rst_n,
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
 	input			valid_in,
 	input	[2:0]	color_in,
-	input			last_in,
+	input			last_pic_in,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output			valid_out,
 	output  [2:0]	color_out,
-	output			last_out
+	output			last_pic_out
 );
 reg	[`COLOR_DEPTH-1:0]	pixel_in_reg;
 reg						valid_in_reg;
 reg	[2:0]				color_in_reg;
-reg						last_in_reg;
+reg						last_pic_in_reg;
 reg	[`COLOR_DEPTH-1:0]	pixel_out_reg, n_pixel_out_reg;
 reg						valid_out_reg, n_valid_out_reg;
 reg	[2:0]				color_out_reg, n_color_out_reg;
-reg						last_out_reg, n_last_out_reg;
+reg						last_pic_out_reg, n_last_pic_out_reg;
 always@(*) begin
 	n_valid_out_reg = valid_in_reg;
 	n_color_out_reg = color_in_reg;
-	n_last_out_reg = last_in_reg;
+	n_last_pic_out_reg = last_pic_in_reg;
 end
 
 always@(*) begin
@@ -280,16 +280,27 @@ always@(*) begin
 	endcase
 end
 
-always@(posedge clk or posedge rst)
-	if(rst) begin
-		pixel_in_reg = 0;
-		valid_in_reg = 0;
-		color_in_reg = 0;
-		last_in_reg = 0;
+always@(posedge clk or negedge rst_n)
+	if(!rst_n) begin
+		pixel_in_reg <= 0;
+		valid_in_reg <= 0;
+		color_in_reg <= 0;
+		last_pic_in_reg <= 0;
+		pixel_out_reg <= 0;
+		valid_out_reg <= 0;
+		color_out_reg <= 0;
+		last_pic_out_reg <= 0;
 
 	end
 	else begin
-
+		pixel_in_reg <= pixel_in;
+		valid_in_reg <= valid_in;
+		color_in_reg <= color_in;
+		last_pic_in_reg <= last_pic_in;
+		pixel_out_reg <= n_pixel_out_reg;
+		valid_out_reg <= n_valid_out_reg;
+		color_out_reg <= n_color_out_reg;
+		last_pic_out_reg <= n_last_pic_out_reg;
 
 	end
 	
