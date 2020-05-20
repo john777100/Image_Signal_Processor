@@ -13,7 +13,7 @@ module denoise_tb;
 	localparam BLUE		= 2'd2;
 	localparam VOID		= 2'd3;
 	reg clk;
-	reg rst;
+	reg rst_n;
 	reg [`COLOR_DEPTH-1:0]	pixel_in;
 	reg			valid_in;
 	reg	[2:0]	color_in;
@@ -25,7 +25,7 @@ module denoise_tb;
 
 	integer dumb, cnt, error, finished, input_pat, golden_pat,output_cnt, color, i;
 
-	denoise dn(.clk(clk), .rst(rst), .pixel_in(pixel_in), .valid_in(valid_in), .color_in(color_in), .last_col_in(last_col_in),
+	denoise dn(.clk(clk), .rst_n(rst_n), .pixel_in(pixel_in), .valid_in(valid_in), .color_in(color_in), .last_col_in(last_col_in),
 	.pixel_out(pixel_out), .valid_out(valid_out), .color_out(color_out), .last_col_out(last_col_out));
 	reg	[`COLOR_DEPTH-1:0] r_input [0:`INPUT_LENGTH-1];
 	reg	[`COLOR_DEPTH-1:0] g_input [0:`INPUT_LENGTH-1];
@@ -86,11 +86,11 @@ module denoise_tb;
 	
 	// sending input pattern 
 	initial begin
-		rst = 1'b1;
+		rst_n = 1'b0;
 		#(`CYCLE * 3)
 		for( i=0; i<`INPUT_LENGTH; i=i+1) begin
 			@(negedge clk) begin
-				rst = 1'b0;
+				rst_n = 1'b1;
 				pixel_in = r_input[i];
 				valid_in = 1'b1;
 				color_in = RED;

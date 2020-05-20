@@ -4,7 +4,7 @@
 `define WIN_RADIUS 1
 module denoise(
 	input			clk,
-	input			rst,
+	input			rst_n,
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
 	input			valid_in,
 	input	[2:0]	color_in,
@@ -286,8 +286,8 @@ always@(*) begin
 	end
 end
 
-always@(posedge clk or posedge rst) begin
-	if(rst) begin
+always@(posedge clk or negedge rst_n) begin
+	if(!rst_n) begin
 		pixel_in_reg  <= 0; 
 		valid_in_reg  <= 0; 
 		color_in_reg  <= 0; 
