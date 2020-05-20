@@ -8,7 +8,7 @@ module Gain(
 	K_R_o,
 	K_G_o,
 	K_B_o,
-	finish_o
+	valid_gain_o //change to valid_gain
 	);
 	//division precision
 	parameter PRECISION = 5'd16;
@@ -16,7 +16,7 @@ module Gain(
 	//I/O
 	input clk, rst_n, valid_i;
 	input [7:0] r_mean_i, g_mean_i, b_mean_i;
-	output finish_o;
+	output valid_gain_o;
 	output reg [PRECISION - 1:0] K_R_o, K_G_o, K_B_o; 		//quotient 16bit
 
 	//internal signals
@@ -43,7 +43,7 @@ module Gain(
 	localparam DONE = 2'd3;
 
 	//assignment
-	assign finish_o = finish_R_w & finish_G_w & finish_B_w;
+	assign valid_gain_o = finish_R_w & finish_G_w & finish_B_w;
 
 	//combinational FSM for R
 	always@(*) begin
