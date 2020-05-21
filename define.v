@@ -38,7 +38,13 @@
 
 
 //reg_selection
-`define PIC_SIZE_REG	2'd0
-`define RED_GAIN		2'd1
-`define GREEN_GAIN		2'd2
-`define BLUE_GAIN		2'd3
+`define PIC_SIZE_REG	4'd0
+`define RED_GAIN_0		4'd1
+`define GREEN_GAIN_0	4'd2
+`define BLUE_GAIN_0		4'd3
+`define RED_GAIN_8		4'd4
+`define GREEN_GAIN_8	4'd5
+`define BLUE_GAIN_8		4'd6
+`define RED_MEAN		4'd7
+`define GREEN_MEAN		4'd8
+`define BLUE_MEAN		4'd9

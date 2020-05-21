@@ -7,7 +7,6 @@ module top(
 	input						last_col_in,
 	input						last_pic_in,
 	input	[`MODE_BIT_CNT-1:0]	mode,
-	input						start,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output						valid_out,
 	output  [`COLOR_BIT_CNT-1:0]color_out,
@@ -34,11 +33,13 @@ module top(
 
 
 
-
 	reg		[4:0]				size_top, n_size_top;
 	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
-	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
-	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
+	reg		[`GAIN_BIT_CNT-1:0]	k_g_reg, n_k_g_reg;
+	reg		[`GAIN_BIT_CNT-1:0]	k_b_reg, n_k_b_reg;
+	reg		[`COLOR_DEPTH-1:0]	r_mean_reg, n_r_mean_reg;
+	reg		[`COLOR_DEPTH-1:0]	g_mean_reg, n_g_mean_reg;
+	reg		[`COLOR_DEPTH-1:0]	b_mean_reg, n_b_mean_reg;
 	
 
 
@@ -64,8 +65,12 @@ module top(
 	wire 						last_col_out_dem;
 	wire 						last_pic_out_dem;
 
+	assign pixel_in_dem		= pixel_in_reg;
+	assign valid_in_dem		= valid_in_reg		
+	assign color_in_dem		= color_in_reg		
+	assign last_col_in_dem	= last_col_in_reg	
+	assign last_pic_in_dem	= last_pic_in_reg	
 	
-
 
 
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_den;
@@ -79,10 +84,15 @@ module top(
 	wire 						last_col_out_den;
 	wire 						last_pic_out_den;
 
+	assign pixel_in_den		= mode_reg == STAGE22 ? pixel_in_reg : pixel_out_dem;
+	assign valid_in_den		= mode_reg == STAGE22 ? valid_in_reg : valid_out_dem;		
+	assign color_in_den		= mode_reg == STAGE22 ? color_in_reg : color_out_dem;
+	assign last_col_in_den	= mode_reg == STAGE22 ? last_col_in_reg	: last_col_out_dem;
+	assign last_pic_in_den	= mode_reg == STAGE22 ? last_pic_in_reg	: last_pic_out_dem;
+
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_mean;
 	wire 						valid_in_mean;
 	wire 	[`COLOR_BIT_CNT-1:0]color_in_mean;
-	wire 						last_col_in_mean;
 	wire 						last_pic_in_mean;
 	wire 	[`COLOR_DEPTH-1:0]	r_mean_out_mean;
 	wire 	[`COLOR_DEPTH-1:0]	g_mean_out_mean;
@@ -90,6 +100,13 @@ module top(
 	wire 						valid_out_mean;
 	wire 	[`COLOR_BIT_CNT-1:0]color_out_mean;
 	wire 						last_pic_out_mean;
+	wire 						finish_out_mean;
+
+	assign pixel_in_mean	=  mode_reg == STAGE33 ? pixel_in_reg : pixel_out_den;
+	assign valid_in_mean	=  mode_reg == STAGE33 ? valid_in_reg : valid_out_den;		
+	assign color_in_mean	=  mode_reg == STAGE33 ? color_in_reg : color_out_den;
+	assign last_col_in_mean	=  mode_reg == STAGE33 ? last_col_in_reg	: last_col_out_den;
+	assign last_pic_in_mean	=  mode_reg == STAGE33 ? last_pic_in_reg	: last_pic_out_den;
 
 	wire 						valid_in_gain;
 	wire 	[`COLOR_DEPTH-1:0]	r_mean_in_gain;
@@ -99,6 +116,12 @@ module top(
 	wire 	[`GAIN_BIT_CNT-1:0]	k_r_out_gain;
 	wire 	[`GAIN_BIT_CNT-1:0]	k_g_out_gain;
 	wire 	[`GAIN_BIT_CNT-1:0]	k_b_out_gain;
+
+
+	assign valid_in_gain 	= mode_reg == STAGE44 ? valid_in_reg : finish_out_mean;
+	assign r_mean_in_gain	= mode_reg == STAGE44 ? r_mean_reg : r_mean_out_mean;
+	assign g_mean_in_gain	= mode_reg == STAGE44 ? g_mean_reg : g_mean_out_mean;
+	assign b_mean_in_gain	= mode_reg == STAGE44 ? b_mean_reg : b_mean_out_mean;
 
 	wire						valid_value_in_wb;
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_wb;
@@ -111,6 +134,16 @@ module top(
 	wire 	[`COLOR_DEPTH-1:0]	pixel_out_wb;
 	wire 	[`COLOR_BIT_CNT-1:0]color_out_wb;
 	wire 						last_pic_out_wb;
+
+	
+	assign valid_value_in_wb	= mode_reg == STAGE55 ? valid_in_reg : finish_out_mean;
+	assign pixel_in_wb			= pixel_in_reg; 
+	assign color_in_wb			= color_in_reg;
+	assign valid_gain_in_wb		= mode_reg == /// ?????
+	assign k_r_in_wb			= 
+	assign k_g_in_wb			= 
+	assign k_b_in_wb			= 
+
 
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_gamma;
 	wire 						valid_in_gamma;
@@ -163,7 +196,8 @@ Mean mean(
 	.b_mean_o(b_mean_out_mean),
 	.valid_o(valid_out_mean),	// ???
 	.color_o(color_out_mean),	// ???
-	.last_o(last_pic_out_mean)	// ???
+	.last_o(last_pic_out_mean),	// ???
+	.finish_o(finish_out_mean)
 );
 
 Gain gain(
