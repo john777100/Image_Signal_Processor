@@ -2,7 +2,7 @@
 `define INPUT_ROW_COUNT 6
 `define COLOR_DEPTH 8
 `define WIN_RADIUS 1
-module gamma_22(
+module gamma_122(
 	input			clk,
 	input			rst_n,
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
