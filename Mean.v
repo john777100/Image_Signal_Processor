@@ -11,7 +11,8 @@ module Mean(
 	b_mean_o,
 	valid_o,
 	color_o,
-	last_o
+	last_o, 
+	finish_o
 	);
 
 	//specify color
@@ -26,6 +27,7 @@ module Mean(
 	input [4:0] size_i;
 
 	output valid_o, last_o;
+	output reg finish_o;
 	output [1:0] color_o;
 	output [7:0] r_mean_o, g_mean_o, b_mean_o;
 
@@ -59,7 +61,7 @@ module Mean(
 
 	//FSM for last signal
 	always@(*) begin
-		last_w = last_r;
+		last_w = finish_o;
 		last_state_w = last_state_r;
 
 		case(last_state_r)
@@ -113,6 +115,7 @@ module Mean(
 			last_r 	<= 0;
 			color_r <= 0;
 			value_r <= 0;
+			finish_o <= 0;
 			//
 			last_state_r <= 0;
 		end
@@ -122,7 +125,8 @@ module Mean(
 			sum_b <= sum_b_nxt;
 			//Input FF
 			valid_r <= valid_i;
-			last_r 	<= last_w;
+			finish_o <= last_w;
+			last_r 	<= last_i;
 			color_r <= color_i;
 			value_r <= value_i;
 			//
