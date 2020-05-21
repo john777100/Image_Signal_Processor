@@ -3,8 +3,10 @@
 `define INPUT_ROW_COUNT 6
 `define COLOR_DEPTH 	8
 `define WIN_RADIUS 		1
+`define GAIN_BIT_CNT	16
 
 //color
+`define COLOR_BIT_CNT	2
 `define RED 			2'd0
 `define GREEN 			2'd1
 `define BLUE 			2'd2
@@ -19,7 +21,7 @@
 `define GAMMA			6
 
 //mode
-`define MODE_BIT_COUNT	4
+`define MODE_BIT_CNT	4
 `define STAGE11			4'd0
 `define	STAGE22			4'd1
 `define STAGE33			4'd2
