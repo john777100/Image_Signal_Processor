@@ -1,6 +1,6 @@
 `timescale 1ns/10ps
 `define CYCLE 10
-module TB();
+module MEAN_TB();
 	reg clk, rst_n;
 
 	//for inout of Gain
@@ -11,7 +11,7 @@ module TB();
 
 	//dump fsdb
 	initial begin
-		$fsdbDumpfile("TB.fsdb");
+		$fsdbDumpfile("gain.fsdb");
 		$fsdbDumpMDA;
 		$fsdbDumpvars;
 	end
