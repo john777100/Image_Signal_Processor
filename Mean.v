@@ -5,7 +5,7 @@ module Mean(
 	color_i,
 	value_i,
 	last_i, //finish signal
-	size_i, //specify images' n (nxn)
+	size_i, //specify images' =n+m (nxm)
 	r_mean_o,
 	g_mean_o,
 	b_mean_o,
@@ -36,7 +36,6 @@ module Mean(
 
 	reg [27:0] sum_r, sum_g, sum_b;
 	reg [27:0] sum_r_nxt, sum_g_nxt, sum_b_nxt;
-	reg [7:0] r_mean_nxt, g_mean_nxt, b_mean_nxt;
 
 	reg [1:0] last_state_r, last_state_w;
 
@@ -48,36 +47,53 @@ module Mean(
 	assign valid_o = valid_r;
 	assign last_o = last_r;
 	assign color_o = color_r;
-	assign r_mean_o = sum_r >> 2*size_i;
-	assign g_mean_o = sum_g >> 2*size_i;
-	assign b_mean_o = sum_b >> 2*size_i;
+	assign r_mean_o = sum_r >> size_i;
+	assign g_mean_o = sum_g >> size_i;
+	assign b_mean_o = sum_b >> size_i;
 
 	//localparam for last signal
 	localparam IDLE = 2'd0;
 	localparam ONE 	= 2'd1;
 	localparam TWO  = 2'd2;
+	localparam THREE = 2'd3;
 
 	//FSM for last signal
 	always@(*) begin
 		last_w = last_r;
+		last_state_w = last_state_r;
+
 		case(last_state_r)
 			IDLE:
 			begin
-				if(last_i == 1'b1) last_state_w = ONE;
-				else last_state_w = IDLE;
+				if(last_i == 1'b1) begin				
+					last_state_w = ONE;
+				end
+				else begin
+					last_state_w = IDLE;
+				end
 			end
 			ONE:
 			begin
-				if(last_i == 1'b1) last_state_w = TWO;
-				else last_state_w = ONE;
+				if(last_i == 1'b1) begin
+					last_state_w = TWO;
+				end
+				else begin
+					last_state_w = ONE;
+				end
 			end
 			TWO:
 			begin
 				if(last_i == 1'b1) begin
-					last_state_w 	= IDLE;
-					last_w 			= 1'd1;
+					last_state_w 	= THREE;
 				end
-				else last_state_w = TWO;
+				else begin
+					last_state_w = TWO;
+				end
+			end
+			THREE:
+			begin
+				last_w = 1'b1;
+				last_state_w = IDLE;
 			end
 			default:
 			begin
@@ -97,6 +113,8 @@ module Mean(
 			last_r 	<= 0;
 			color_r <= 0;
 			value_r <= 0;
+			//
+			last_state_r <= 0;
 		end
 		else begin
 			sum_r <= sum_r_nxt;
@@ -104,10 +122,12 @@ module Mean(
 			sum_b <= sum_b_nxt;
 			//Input FF
 			valid_r <= valid_i;
-			last_r 	<= last_i;
+			last_r 	<= last_w;
 			color_r <= color_i;
 			value_r <= value_i;
-		end
+			//
+			last_state_r <= last_state_w;
+ 		end
 	end
 
 	//combinational

@@ -17,16 +17,18 @@ module WB(
 	input clk, rst_n, valid_value_i, valid_gain_i;
 	input [1:0] color_i;
 	input [7:0] value_i;
-	input [7:0] K_R, K_G, K_B;
+	input [15:0] K_R, K_G, K_B;
 
 	output valid_o;
 	output [1:0] color_o;
-	output reg [7:0] value_o;
+	output [7:0] value_o;
 
 	//internal signal
-	reg valid_value_r, valid_gain_r, color_r;
+	reg valid_value_r, valid_gain_r; 
+	reg [1:0] color_r;
 	reg [7:0] value_r;
 	reg [7:0] K_R_r, K_G_r, K_B_r;
+	reg [15:0] value_tmp;
 
 	//parameter
 	localparam RED = 2'd0;
@@ -36,6 +38,7 @@ module WB(
 	//assignment
 	assign color_o = color_r;
 	assign valid_o = valid_value_r & valid_gain_r;
+	assign value_o = value_tmp[11:4];
 
 	//sequential 
 	always@(posedge clk or negedge rst_n) begin
@@ -55,9 +58,9 @@ module WB(
 			valid_gain_r <= valid_gain_i;
 			color_r <= color_i;
 			value_r <= value_i;
-			K_R_r <= K_R;
-			K_G_r <= K_G;
-			K_B_r <= K_B;
+			K_R_r <= K_R[11:4];
+			K_G_r <= K_G[11:4];
+			K_B_r <= K_B[11:4];
 		end
 	end
 
@@ -67,19 +70,19 @@ module WB(
 			1'd1:
 			begin
 				case(color_r)
-					RED: 	value_o = K_R_r * value_r;
-					GREEN:	value_o = K_G_r * value_r;
-					BLUE:	value_o = K_B_r * value_r;
-					default: value_o = value_r;
+					RED: 	value_tmp = K_R_r * value_r;
+					GREEN:	value_tmp = K_G_r * value_r;
+					BLUE:	value_tmp = K_B_r * value_r;
+					default: value_tmp = value_r;
 				endcase
 			end
 			1'd0:
 			begin
-				value_o = 8'd0;
+				value_tmp = 15'd0;
 			end
 			default:
 			begin
-				value_o = 8'd0;
+				value_tmp = 15'd0;
 			end
 		endcase
 	end
