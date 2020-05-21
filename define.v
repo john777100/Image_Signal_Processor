@@ -21,30 +21,25 @@
 `define GAMMA			6
 
 //mode
-`define MODE_BIT_CNT	4
-`define STAGE11			4'd0
-`define	STAGE22			4'd1
-`define STAGE33			4'd2
-`define STAGE44			4'd3
-`define STAGE55			4'd4
-`define STAGE66			4'd5
-`define STAGE12			4'd6
-`define STAGE34			4'd7
-`define STAGE14			4'd8
-`define STAGE56S		4'd9
-`define STAGE56			4'd10
-`define SET_REG			4'd11
-`define READ_REG		4'd12
+`define MODE_BIT_CNT	3
+`define STAGE11			3'd0
+`define	STAGE22			3'd1
+`define STAGE33			3'd2
+`define STAGE44			3'd3
+`define STAGE55			3'd4
+`define STAGE66			3'd5
+`define STAGE14			3'd6
+`define STAGE56			3'd7
 
 
 //reg_selection
-`define PIC_SIZE_REG	4'd0
-`define RED_GAIN_0		4'd1
-`define GREEN_GAIN_0	4'd2
-`define BLUE_GAIN_0		4'd3
-`define RED_GAIN_8		4'd4
-`define GREEN_GAIN_8	4'd5
-`define BLUE_GAIN_8		4'd6
-`define RED_MEAN		4'd7
-`define GREEN_MEAN		4'd8
-`define BLUE_MEAN		4'd9
+//`define PIC_SIZE_REG	4'd0
+//`define RED_GAIN_0		4'd1
+//`define GREEN_GAIN_0	4'd2
+//`define BLUE_GAIN_0		4'd3
+//`define RED_GAIN_8		4'd4
+//`define GREEN_GAIN_8	4'd5
+//`define BLUE_GAIN_8		4'd6
+//`define RED_MEAN		4'd7
+//`define GREEN_MEAN		4'd8
+//`define BLUE_MEAN		4'd9
