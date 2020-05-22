@@ -6,7 +6,7 @@ module top(
 	input	[`COLOR_BIT_CNT-1:0]color_in,
 	input						last_col_in,
 	input						last_pic_in,
-	input	[`MODE_BIT_CNT-1:0]	mode,
+	input	[`MODE_BIT_CNT-1:0]	mode_in,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output						valid_out,
 	output  [`COLOR_BIT_CNT-1:0]color_out,
@@ -23,7 +23,6 @@ module top(
 	reg						last_col_in_reg, n_last_col_in_reg;
 	reg						last_pic_in_reg, n_last_pic_in_reg;
 	reg	[`MODE_BIT_CNT-1:0]	mode_reg,        n_mode_reg;
-	reg						start_reg,       n_start_reg;
 	reg	[`COLOR_DEPTH-1:0]	pixel_out_reg,   n_pixel_out_reg;
 	reg						valid_out_reg,   n_valid_out_reg;
 	reg	[`COLOR_BIT_CNT-1:0]color_out_reg,   n_color_out_reg;
@@ -33,13 +32,19 @@ module top(
 
 
 
-	reg		[4:0]				size_top, n_size_top;
-	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
-	reg		[`GAIN_BIT_CNT-1:0]	k_g_reg, n_k_g_reg;
-	reg		[`GAIN_BIT_CNT-1:0]	k_b_reg, n_k_b_reg;
-	reg		[`COLOR_DEPTH-1:0]	r_mean_reg, n_r_mean_reg;
-	reg		[`COLOR_DEPTH-1:0]	g_mean_reg, n_g_mean_reg;
-	reg		[`COLOR_DEPTH-1:0]	b_mean_reg, n_b_mean_reg;
+//	reg		[4:0]				size_top, n_size_top;
+//	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
+//	reg		[`GAIN_BIT_CNT-1:0]	k_g_reg, n_k_g_reg;
+//	reg		[`GAIN_BIT_CNT-1:0]	k_b_reg, n_k_b_reg;
+//	reg		[`COLOR_DEPTH-1:0]	r_mean_reg, n_r_mean_reg;
+//	reg		[`COLOR_DEPTH-1:0]	g_mean_reg, n_g_mean_reg;
+//	reg		[`COLOR_DEPTH-1:0]	b_mean_reg, n_b_mean_reg;
+	localparam  r_mean_local = 8'd128;
+	localparam  g_mean_local = 8'd128;
+	localparam  b_mean_local = 8'd128;
+	localparam 	k_r_local = 16'd1;
+	localparam 	k_g_local = 16'd1;
+	localparam 	k_b_local = 16'd1;
 	
 
 
@@ -105,7 +110,6 @@ module top(
 	assign pixel_in_mean	=  mode_reg == STAGE33 ? pixel_in_reg : pixel_out_den;
 	assign valid_in_mean	=  mode_reg == STAGE33 ? valid_in_reg : valid_out_den;		
 	assign color_in_mean	=  mode_reg == STAGE33 ? color_in_reg : color_out_den;
-	assign last_col_in_mean	=  mode_reg == STAGE33 ? last_col_in_reg	: last_col_out_den;
 	assign last_pic_in_mean	=  mode_reg == STAGE33 ? last_pic_in_reg	: last_pic_out_den;
 
 	wire 						valid_in_gain;
@@ -119,9 +123,9 @@ module top(
 
 
 	assign valid_in_gain 	= mode_reg == STAGE44 ? valid_in_reg : finish_out_mean;
-	assign r_mean_in_gain	= mode_reg == STAGE44 ? r_mean_reg : r_mean_out_mean;
-	assign g_mean_in_gain	= mode_reg == STAGE44 ? g_mean_reg : g_mean_out_mean;
-	assign b_mean_in_gain	= mode_reg == STAGE44 ? b_mean_reg : b_mean_out_mean;
+	assign r_mean_in_gain	= mode_reg == STAGE44 ? r_mean_local : r_mean_out_mean;
+	assign g_mean_in_gain	= mode_reg == STAGE44 ? g_mean_local : g_mean_out_mean;
+	assign b_mean_in_gain	= mode_reg == STAGE44 ? b_mean_local : b_mean_out_mean;
 
 	wire						valid_value_in_wb;
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_wb;
@@ -136,13 +140,13 @@ module top(
 	wire 						last_pic_out_wb;
 
 	
-	assign valid_value_in_wb	= mode_reg == STAGE55 ? valid_in_reg : finish_out_mean;
+	assign valid_value_in_wb	= valid_in_reg;
 	assign pixel_in_wb			= pixel_in_reg; 
 	assign color_in_wb			= color_in_reg;
-	assign valid_gain_in_wb		= mode_reg == /// ?????
-	assign k_r_in_wb			= 
-	assign k_g_in_wb			= 
-	assign k_b_in_wb			= 
+	assign valid_gain_in_wb		= mode_reg == STAGE55 ? last_col_in : valid_out_gain; /// ?????
+	assign k_r_in_wb			= mode_reg == STAGE55 ? k_r_local :  k_r_out_gain;
+	assign k_g_in_wb			= mode_reg == STAGE55 ? k_g_local :  k_g_out_gain;
+	assign k_b_in_wb			= mode_reg == STAGE55 ? k_b_local :  k_b_out_gain;
 
 
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_gamma;
@@ -153,6 +157,11 @@ module top(
 	wire 						valid_out_gamma;
 	wire 	[`COLOR_BIT_CNT-1:0]color_out_gamma;
 	wire 						last_pic_out_gamma;
+
+	assign pixel_in_gamma 		= mode_reg == STAGE66 ? pixel_in_reg : pixel_out_wb;
+	assign valid_in_gamma		= mode_reg == STAGE66 ? valid_in_reg : valid_out_wb;
+	assign color_in_gamma		= mode_reg == STAGE66 ? color_in_reg : color_out_wb;
+	assign last_pic_in_gamma	= mode_reg == STAGE66 ? last_pic_out_reg : last_pic_out_wb;
 
 demosaic demosaic(
 	.clk(clk),
@@ -190,7 +199,7 @@ Mean mean(
 	.color_i(color_in_mean),
 	.value_i(pixel_in_mean),
 	.last_i(last_pic_in_mean), //finish signal
-	.size_i(size_top_wire), //(k+m) specify images size 2^k * 2^m 
+	.size_i(5'd20), //(k+m) specify images size 2^k * 2^m 
 	.r_mean_o(r_mean_out_mean),
 	.g_mean_o(g_mean_out_mean),
 	.b_mean_o(b_mean_out_mean),
@@ -241,6 +250,38 @@ gamma_122 gamma(
 	.last_pic_out(last_pic_out_gamma)
 );
 
+always@(*) begin
+	n_pixel_in_reg = pxiel_in;
+	n_valid_in_reg = valid_in;
+	n_color_in_reg = color_in;
+	n_last_col_in_reg = last_col_in;
+	n_last_pic_in_reg = last_pic_in;
+	n_mode_reg = mode_in;
+	case(mode)
+		STAGE11:begin
+			n_pixel_out_reg =    pixel_out_dem;
+			n_valid_out_reg =    valid_out_dem;
+			n_color_out_reg =    color_out_dem;
+			n_last_col_out_reg = last_col_out_dem;
+			n_last_pic_out_reg = last_pic_out_dem;
+			n_finish_reg = color_out_dem == BLUE && last_col_out_dem; 
+		end
+		STAGE22:begin
+			n_pixel_out_reg =    pixel_out_den;
+			n_valid_out_reg =    valid_out_den;
+			n_color_out_reg =    color_out_den;
+			n_last_col_out_reg = last_col_out_den;
+			n_last_pic_out_reg = last_pic_out_den;
+			n_finish_reg = color_out_den == BLUE && last_col_out_den; 
+		end
+		STAGE33:
+		STAGE44:
+		STAGE55:
+		STAGE66:
+		STAGE14:
+		STAGE56:
+	endcase
 
+end
 
 endmodule
