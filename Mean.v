@@ -9,7 +9,6 @@ module Mean(
 	r_mean_o,
 	g_mean_o,
 	b_mean_o,
-	valid_o, 
 	finish_o
 	);
 
@@ -24,7 +23,6 @@ module Mean(
 	input [7:0] value_i;
 	input [4:0] size_i;
 
-	output valid_o;
 	output reg finish_o;
 	output [7:0] r_mean_o, g_mean_o, b_mean_o;
 
@@ -43,7 +41,6 @@ module Mean(
 	// parameter BITS = 2*size_i + 8; 
 
 	//assignment
-	assign valid_o = valid_r;
 	assign r_mean_o = sum_r >> size_i;
 	assign g_mean_o = sum_g >> size_i;
 	assign b_mean_o = sum_b >> size_i;
