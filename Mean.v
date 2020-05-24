@@ -9,6 +9,9 @@ module Mean(
 	r_mean_o,
 	g_mean_o,
 	b_mean_o,
+	valid_o,
+	color_o,
+	last_o, 
 	finish_o
 	);
 
@@ -23,7 +26,9 @@ module Mean(
 	input [7:0] value_i;
 	input [4:0] size_i;
 
+	output valid_o, last_o;
 	output reg finish_o;
+	output [1:0] color_o;
 	output [7:0] r_mean_o, g_mean_o, b_mean_o;
 
 	//Input FF
@@ -41,6 +46,9 @@ module Mean(
 	// parameter BITS = 2*size_i + 8; 
 
 	//assignment
+	assign valid_o = valid_r;
+	assign last_o = last_r;
+	assign color_o = color_r;
 	assign r_mean_o = sum_r >> size_i;
 	assign g_mean_o = sum_g >> size_i;
 	assign b_mean_o = sum_b >> size_i;
