@@ -18,7 +18,7 @@ include "define.v"
 `define GAIN_LEN 	1
 `define WB_LEN 		IMG_ROW * IMG_COL
 `define GAM_LEN 	IMG_ROW * IMG_COL
-`define TERM_CYCLE  6000000
+`define TERM_CYCLE  7000000
 
 
 module top_tb;
