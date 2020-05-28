@@ -34,7 +34,7 @@ module Gain(
 	reg [1:0] state_R_r, state_R_w, state_G_r, state_G_w, state_B_r, state_B_w;
 	reg [4:0] counter_R_r, counter_R_w, counter_G_r, counter_G_w, counter_B_r, counter_B_w; //might be modified if PRESISION changes
 
-	//check MSB of divisor
+	//check MSB of 
 	reg [2:0] MSB_R_r, MSB_R_w, MSB_G_r, MSB_G_w, MSB_B_r, MSB_B_w;
 
 	//output buffer
@@ -52,7 +52,7 @@ module Gain(
 	//combinational FSM for R
 	always@(*) begin
 		state_R_w 	= state_R_r;
-		counter_R_w 	= counter_R_r;
+		counter_R_w = counter_R_r;
 		finish_R_w 	= finish_R_r;
 
 		case(state_R_r) 
@@ -98,7 +98,7 @@ module Gain(
 	always@(*) begin
 		R_w 		= R_r;	      //dividend	 
 		r_mean_w 	= r_mean_r;   //divisor
-		K_R_w		= K_R_o;      //quotient  
+		K_R_w		= K_R_tmp;      //quotient  
 		MSB_R_w 	= MSB_R_r;    //MSB 
 
 		case(state_R_r) 
@@ -129,11 +129,11 @@ module Gain(
 			begin
 				if(R_r < r_mean_r) begin
 					R_w 	= R_r;
-					K_R_w 	= {K_R_o[PRECISION-2:0], 1'd0};
+					K_R_w 	= {K_R_tmp[PRECISION-2:0], 1'd0};
 				end
 				else begin
 					R_w 	= R_r - r_mean_r;
-					K_R_w 	= {K_R_o[PRECISION-2:0], 1'd1};
+					K_R_w 	= {K_R_tmp[PRECISION-2:0], 1'd1};
 				end
 		
 				r_mean_w = {1'b0, r_mean_r[15:1]};
@@ -142,7 +142,7 @@ module Gain(
 			begin
 				R_w 		= R_r;	
 				r_mean_w 	= r_mean_r;
-				K_R_w		= K_R_o;
+				K_R_w		= K_R_tmp;
 			end
 		endcase
 	end
@@ -195,7 +195,7 @@ module Gain(
 	always@(*) begin
 		G_w 		= G_r;	      //dividend	 
 		g_mean_w 	= g_mean_r;   //divisor
-		K_G_w		= K_G_o;      //quotient  
+		K_G_w		= K_G_tmp;      //quotient  
 		MSB_G_w 	= MSB_G_r;    //MSB 
 
 		case(state_G_r) 
@@ -226,11 +226,11 @@ module Gain(
 			begin
 				if(G_r < g_mean_r) begin
 					G_w 	= G_r;
-					K_G_w 	= {K_G_o[PRECISION-2:0], 1'd0};
+					K_G_w 	= {K_G_tmp[PRECISION-2:0], 1'd0};
 				end
 				else begin
 					G_w 	= G_r - g_mean_r;
-					K_G_w 	= {K_G_o[PRECISION-2:0], 1'd1};
+					K_G_w 	= {K_G_tmp[PRECISION-2:0], 1'd1};
 				end
 		
 				g_mean_w = {1'b0, g_mean_r[15:1]};
@@ -239,7 +239,7 @@ module Gain(
 			begin
 				G_w 		= G_r;	
 				g_mean_w 	= g_mean_r;
-				K_G_w		= K_G_o;
+				K_G_w		= K_G_tmp;
 			end
 		endcase
 	end 
@@ -292,7 +292,7 @@ module Gain(
 	always@(*) begin
 		B_w 		= B_r;	      //dividend	 
 		b_mean_w 	= b_mean_r;   //divisor
-		K_B_w		= K_B_o;      //quotient  
+		K_B_w		= K_B_tmp;      //quotient  
 		MSB_B_w 	= MSB_B_r;    //MSB 
 
 		case(state_B_r) 
@@ -323,11 +323,11 @@ module Gain(
 			begin
 				if(B_r < b_mean_r) begin
 					B_w 	= B_r;
-					K_B_w 	= {K_B_o[PRECISION-2:0], 1'd0};
+					K_B_w 	= {K_B_tmp[PRECISION-2:0], 1'd0};
 				end
 				else begin
 					B_w 	= B_r - b_mean_r;
-					K_B_w 	= {K_B_o[PRECISION-2:0], 1'd1};
+					K_B_w 	= {K_B_tmp[PRECISION-2:0], 1'd1};
 				end
 		
 				b_mean_w = {1'b0, b_mean_r[15:1]};
@@ -336,7 +336,7 @@ module Gain(
 			begin
 				B_w 		= B_r;	
 				b_mean_w 	= b_mean_r;
-				K_B_w		= K_B_o;
+				K_B_w		= K_B_tmp;
 			end
 		endcase
 	end
