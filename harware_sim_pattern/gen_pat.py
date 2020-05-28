@@ -1,18 +1,25 @@
+import os
 import numpy as np
 import struct
 import math
 import scipy.misc
 import csv
+import rawpy
 
+IMAGE_FILE = '20201_00_10s.ARW'
+RAW_DATA_MAX = 16383
 PROCESS_ROW = 4
 WIN_RADIUS = 1
-PIC_ROW = 12
-PIC_COL = 8
+PIC_ROW = 1024
+PIC_COL = 1024
 
 def main():
-    print("Generating bayer...")
-    bayer = get_picture_numpy()
+#    print("Generating bayer...")
+#    bayer = get_picture_numpy()
+    print("Reading bayer...")
+    bayer = get_raw_data()[0:PIC_ROW, 0:PIC_COL]
     print("Bayer size:", bayer.shape)
+    bayer = padding(bayer)
     print("Demosaicking...")
     dem_rgb = demosaic(bayer)
     print("Demosaic size:", dem_rgb.shape)
@@ -50,25 +57,23 @@ def get_picture_numpy():
     image = np.random.randint(256, size = (PIC_ROW, PIC_COL))
     return image
 
-def append(rgb):
-    print("rgb shape", rgb.shape)
-    temp = np.concatenate((rgb[0:1,:,:],rgb),axis=0)
-    print("temp shape", temp.shape)
-    for i in range(1):
-        print(temp[:,:,i])
-    temp = np.concatenate((temp,[temp[-1,:,:]]),axis=0)
-    print("temp shape", temp.shape)
-    for i in range(1):
-        print(temp[:,:,i])
-    temp = np.concatenate((temp[:,0:1,:],temp),axis=1)
-    print("temp shape", temp.shape)
-    for i in range(1):
-        print(temp[:,:,i])
-    temp = np.concatenate((temp,temp[:,-1,:].reshape(temp.shape[0],1,3)),axis=1)
-    print("temp shape", temp.shape)
-    for i in range(1):
-        print(temp[:,:,i])
+def padding(bayer):
+    print("Before padding:", bayer.shape)
+    temp = np.concatenate((bayer[0:2,:], bayer),axis=0)
+    temp = np.concatenate((temp, temp[-2:,:]),axis=0)
+    temp = np.concatenate((temp[:,0:2],temp),axis=1)
+    temp = np.concatenate((temp[:,-2:], temp),axis=1)
+    print("After padding:", temp.shape)
     return temp
+
+def get_raw_data(file_name = IMAGE_FILE):
+    assert os.path.exists(file_name), "ERROR! IMAGE_FILE: {} not found".format(file_name)
+    raw = rawpy.imread(file_name)
+    print("Pattern of bayer:\n", raw.raw_colors[0:5,0:5])
+    im = raw.raw_image_visible.astype(np.float32)
+    im = (im)/RAW_DATA_MAX*255
+    im = im.astype(int)
+    return im
 
 def gen_demosaic_input_pattern(bayer, file_name='demosaic_input.pat'):
     with open(file_name, "w") as writer:
