@@ -29,7 +29,7 @@ module Mean(
 	output valid_o, last_o;
 	output reg finish_o;
 	output [1:0] color_o;
-	output [7:0] r_mean_o, g_mean_o, b_mean_o;
+	output reg [7:0] r_mean_o, g_mean_o, b_mean_o;
 
 	//Input FF
 	reg valid_r, last_r, last_w;
@@ -41,17 +41,21 @@ module Mean(
 
 	reg [1:0] last_state_r, last_state_w;
 
+	//output buffer
+	reg valid_tmp, last_tmp, finish_tmp;
+	reg [1:0] color_tmp;
+	wire [7:0] r_mean_tmp, g_mean_tmp, b_mean_tmp;
 	//specify image size
 	// parameter SIZE = 4'd10;
 	// parameter BITS = 2*size_i + 8; 
 
 	//assignment
-	assign valid_o = valid_r;
-	assign last_o = last_r;
-	assign color_o = color_r;
-	assign r_mean_o = sum_r >> size_i;
-	assign g_mean_o = sum_g >> size_i;
-	assign b_mean_o = sum_b >> size_i;
+	assign valid_o = valid_tmp;
+	assign last_o = last_tmp;
+	assign color_o = color_tmp;
+	assign r_mean_tmp 	= sum_r >> size_i;
+	assign g_mean_tmp	= sum_g >> size_i;
+	assign b_mean_tmp 	= sum_b >> size_i;
 
 	//localparam for last signal
 	localparam IDLE = 2'd0;
@@ -116,9 +120,18 @@ module Mean(
 			last_r 	<= 0;
 			color_r <= 0;
 			value_r <= 0;
-			finish_o <= 0;
 			//
 			last_state_r <= 0;
+			//output buff 	
+			finish_tmp 	<= 0;
+			finish_o 	<= 0;
+			valid_tmp 	<= 0;
+			last_tmp 	<= 0;
+			color_tmp 	<= 0;
+			r_mean_o 	<= 0;
+			g_mean_o 	<= 0;
+			b_mean_o 	<= 0;
+
 		end
 		else begin
 			sum_r <= sum_r_nxt;
@@ -126,12 +139,21 @@ module Mean(
 			sum_b <= sum_b_nxt;
 			//Input FF
 			valid_r <= valid_i;
-			finish_o <= last_w;
 			last_r 	<= last_i;
 			color_r <= color_i;
 			value_r <= value_i;
 			//
 			last_state_r <= last_state_w;
+			//output buff
+			finish_tmp 	<= last_w;
+			finish_o 	<= finish_tmp;
+			valid_tmp 	<= valid_r;
+			last_tmp 	<= last_r;
+			color_tmp 	<= color_r;
+			r_mean_o 	<= r_mean_tmp;
+			g_mean_o 	<= g_mean_tmp;
+			b_mean_o 	<= b_mean_tmp;
+
  		end
 	end
 

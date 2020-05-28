@@ -16,7 +16,7 @@ module Gain(
 	//I/O
 	input clk, rst_n, valid_i;
 	input [7:0] r_mean_i, g_mean_i, b_mean_i;
-	output valid_gain_o;
+	output reg valid_gain_o;
 	output reg [PRECISION - 1:0] K_R_o, K_G_o, K_B_o; 		//quotient 16bit
 
 	//internal signals
@@ -37,13 +37,17 @@ module Gain(
 	//check MSB of divisor
 	reg [2:0] MSB_R_r, MSB_R_w, MSB_G_r, MSB_G_w, MSB_B_r, MSB_B_w;
 
+	//output buffer
+	wire valid_gain_tmp;
+	reg [PRECISION - 1: 0] K_R_tmp, K_G_tmp, K_B_tmp;
+
 	localparam IDLE = 2'd0;
 	localparam FIND = 2'd1;
 	localparam CALC = 2'd2;
 	localparam DONE = 2'd3;
 
 	//assignment
-	assign valid_gain_o = finish_R_w & finish_G_w & finish_B_w;
+	assign valid_gain_tmp = finish_R_w & finish_G_w & finish_B_w;
 
 	//combinational FSM for R
 	always@(*) begin
@@ -350,6 +354,10 @@ module Gain(
 			K_R_o 		<= 0;
 			K_G_o	 	<= 0;
 			K_B_o		<= 0;
+			valid_gain_o <= 0;
+			K_R_tmp 	<= 0;
+			K_G_tmp 	<= 0;
+			K_B_tmp 	<= 0;
 			//internal R
 			state_R_r 	<= 0;
 			r_mean_r	<= 0;
@@ -380,9 +388,13 @@ module Gain(
 			K_mean_r 	<= {K_mean_w, 8'd0};
 			valid_r  	<= valid_i;
 			//output
-			K_R_o 		<= K_R_w;
-			K_G_o	 	<= K_G_w;
-			K_B_o		<= K_B_w;
+			K_R_tmp 	<= K_R_w;
+			K_G_tmp	 	<= K_G_w;
+			K_B_tmp		<= K_B_w;
+			K_R_o 		<= K_R_tmp;
+			K_G_o 		<= K_G_tmp;
+			K_B_o 		<= K_B_tmp;
+			valid_gain_o <= valid_gain_tmp;
 			//internal R
 			state_R_r 	<= state_R_w;
 			r_mean_r	<= r_mean_w;
