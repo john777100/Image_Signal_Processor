@@ -73,6 +73,7 @@ module Mean(
 				else begin
 					last_state_w = IDLE;
 				end
+				last_w = 1'b0;
 			end
 			ONE:
 			begin
