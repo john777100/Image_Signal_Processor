@@ -58,7 +58,7 @@ module WB(
 			color_r 	<= 2'd0;
 			color_tmp 	<= 2'd0;
 			value_r 	<= 8'd0;
-			value_tmp <= 8'd0;
+			// value_tmp <= 8'd0;
 			K_R_r 	<= 8'd0;
 			K_G_r 	<= 8'd0;
 			K_B_r 	<= 8'd0;
