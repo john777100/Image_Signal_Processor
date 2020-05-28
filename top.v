@@ -1,3 +1,10 @@
+`include "define.v"
+`include "demosaic.v"
+`include "denoise.v"
+`include "Mean.v"
+`include "Gain.v"
+`include "WB.v"
+`include "gamma.v"
 module top(
 	input						clk,
 	input						rst_n,
@@ -15,7 +22,21 @@ module top(
 	output						finish_operation
 
 
-);	
+);
+
+	
+localparam  RED 			=2'd0;
+localparam  GREEN 			=2'd1;
+localparam  BLUE 			=2'd2;
+localparam  VOID			=2'd3;
+localparam  STAGE11			=3'd0;
+localparam 	STAGE22			=3'd1;
+localparam  STAGE33			=3'd2;
+localparam  STAGE44			=3'd3;
+localparam  STAGE55			=3'd4;
+localparam  STAGE66			=3'd5;
+localparam  STAGE14			=3'd6;
+localparam  STAGE56			=3'd7;
 	//IO reg
 	reg	[`COLOR_DEPTH-1:0]	pixel_in_reg;    
 	reg						valid_in_reg;    
@@ -48,16 +69,16 @@ module top(
 	
 
 
-	wire 	[`COLOR_DEPTH-1:0]	pixel_in;
-	wire 						valid_in;
-	wire 	[`COLOR_BIT_CNT-1:0]color_in;
-	wire 						last_col_in;
-	wire 						last_pic_in;
-	wire 	[`COLOR_DEPTH-1:0]	pixel_out;
-	wire 						valid_out;
-	wire 	[`COLOR_BIT_CNT-1:0]color_out;
-	wire 						last_col_out;
-	wire 						last_pic_out;
+	//wire 	[`COLOR_DEPTH-1:0]	pixel_in;
+	//wire 						valid_in;
+	//wire 	[`COLOR_BIT_CNT-1:0]color_in;
+	//wire 						last_col_in;
+	//wire 						last_pic_in;
+	//wire 	[`COLOR_DEPTH-1:0]	pixel_out;
+	//wire 						valid_out;
+	//wire 	[`COLOR_BIT_CNT-1:0]color_out;
+	//wire 						last_col_out;
+	//wire 						last_pic_out;
 
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_dem;
 	wire 						valid_in_dem;
@@ -71,10 +92,10 @@ module top(
 	wire 						last_pic_out_dem;
 
 	assign pixel_in_dem		= pixel_in_reg;
-	assign valid_in_dem		= valid_in_reg		
-	assign color_in_dem		= color_in_reg		
-	assign last_col_in_dem	= last_col_in_reg	
-	assign last_pic_in_dem	= last_pic_in_reg	
+	assign valid_in_dem		= valid_in_reg;		
+	assign color_in_dem		= color_in_reg;		
+	assign last_col_in_dem	= last_col_in_reg;	
+	assign last_pic_in_dem	= last_pic_in_reg;	
 	
 
 
@@ -159,7 +180,7 @@ module top(
 	wire 						last_pic_out_gamma;
 
 	assign pixel_in_gamma 		= mode_reg == STAGE66 ? pixel_in_reg : pixel_out_wb;
-	assign valid_in_gamma		= mode_reg == STAGE66 ? valid_in_reg : valid_out_wb;
+	assign valid_in_gamma		= mode_reg == STAGE66 ? valid_in_reg : valid_value_out_wb;
 	assign color_in_gamma		= mode_reg == STAGE66 ? color_in_reg : color_out_wb;
 	assign last_pic_in_gamma	= mode_reg == STAGE66 ? last_pic_out_reg : last_pic_out_wb;
 
@@ -234,7 +255,7 @@ WB wb(
 	.K_B(k_b_in_wb),
 	.value_o(pixel_out_wb),
 	.valid_o(valid_value_out_wb),
-	.color_o(color_out_wb)
+	.color_o(color_out_wb),
 	.last_o(last_pic_out_wb)
 	);
 
@@ -252,11 +273,11 @@ gamma_122 gamma(
 );
 
 always@(*) begin
-	n_pixel_in_reg = pxiel_in;
-	n_valid_in_reg = valid_in;
-	n_color_in_reg = color_in;
-	n_last_col_in_reg = 1'b0;
-	n_last_pic_in_reg = 1'b0;
+	n_pixel_out_reg = pixel_out_reg;
+	n_valid_out_reg = valid_out_reg;
+	n_color_out_reg = color_out_reg;
+	n_last_col_out_reg = 1'b0;
+	n_last_pic_out_reg = 1'b0;
 	n_finish_reg = 1'b0; 
 	case(mode_reg)
 		STAGE11:begin
@@ -282,12 +303,12 @@ always@(*) begin
 			n_valid_out_reg =    valid_out_mean;
 			n_color_out_reg =    color_out_mean;
 			n_last_pic_out_reg = last_pic_out_mean;
-			n_finish_reg = finished_out_mean; 
+			n_finish_reg = finish_out_mean; 
 		end
 		STAGE44:begin
-			n_pixel_out_reg = 	 r_gain_out_gain;
+			n_pixel_out_reg = 	 k_r_out_gain;
 			n_valid_out_reg =    valid_out_gain;
-			n_color_out_reg =    color_out_gain;
+			n_color_out_reg =    RED;
 			n_last_pic_out_reg = 1'b0;
 			n_finish_reg = valid_out_gain; 
 		end
@@ -326,7 +347,7 @@ always@(*) begin
 
 end
 
-always@(posedge clk and negedge rst_n) begin
+always@(posedge clk or negedge rst_n) begin
 	if(!rst_n) begin
 		pixel_in_reg	<= 0;    
 		valid_in_reg    <= 0;
@@ -346,7 +367,7 @@ always@(posedge clk and negedge rst_n) begin
 		color_in_reg 	<= color_in;
 		last_col_in_reg <=  last_col_in;
 		last_pic_in_reg <=  last_pic_in;
-		mode_reg 		<= mode;
+		mode_reg 		<= mode_in;
 		pixel_out_reg 	<= n_pixel_out_reg;
 		valid_out_reg 	<= n_valid_out_reg;
 		color_out_reg 	<= n_color_out_reg;
