@@ -42,13 +42,13 @@ def main():
     print("Generating pat file...")
     gen_demosaic_input_pattern(bayer)
     gen_demosaic_golden_pattern(dem_rgb)
-    gen_denoise_input_pattern(dem_rgb)
+#    gen_denoise_input_pattern(dem_rgb)
     gen_denoise_golden_pattern(den_rgb)
     gen_mean_golden_pattern(rgb_mean)
     gen_gain_golden_pattern(rgb_gain)
-    gen_wb_input_pattern(den_rgb)
+#    gen_wb_input_pattern(den_rgb)
     gen_wb_golden_pattern(wb_rgb)
-    gen_gamma_input_pattern(wb_rgb)
+#    gen_gamma_input_pattern(wb_rgb)
     gen_gamma_golden_pattern(gamma_rgb)
     print("Generation complete!")
 
@@ -218,6 +218,7 @@ def float_to_fixed16b(num):
     return "{0:b}".format(fraction).zfill(16)
 
 def wb(avg_gain, rgb):
+    result = np.zeros(rgb.shape)
     k_r = avg_gain[0]
     k_g = avg_gain[1]
     k_b = avg_gain[2]
@@ -230,10 +231,10 @@ def wb(avg_gain, rgb):
     kr_float = fixed8b_to_float(kr_fixed8b)
     kg_float = fixed8b_to_float(kg_fixed8b)
     kb_float = fixed8b_to_float(kb_fixed8b)
-    rgb[:,:,0] = rgb[:,:,0] * kr_float
-    rgb[:,:,1] = rgb[:,:,1] * kg_float
-    rgb[:,:,2] = rgb[:,:,2] * kb_float
-    return rgb
+    result[:,:,0] = rgb[:,:,0] * kr_float
+    result[:,:,1] = rgb[:,:,1] * kg_float
+    result[:,:,2] = rgb[:,:,2] * kb_float
+    return result.astype(int)
 
 def fixed16b_to_float(bits):
     terms = [2 ** i for i in range(7, -9, -1)]
@@ -246,12 +247,13 @@ def fixed8b_to_float(bits):
     return sum(partial_product)
 
 def gamma(rgb):
+    result = np.zeros(rgb.shape)
     gamma_list = [int(255 * math.pow(i / 255, 1 / 2.2)) for i in range(256)]
     for i in range(rgb.shape[0]):
         for j in range(rgb.shape[1]):
             for k in range(rgb.shape[2]):
-                rgb[i,j,k] = gamma_list[rgb[i,j,k]]
-    return rgb
+                result[i,j,k] = gamma_list[rgb[i,j,k]]
+    return result.astype(int)
 
 def gen_demosaic_golden_pattern(rgb, file_name='demosaic_golden.pat'):
     with open(file_name, "w") as writer:
@@ -269,24 +271,22 @@ def gen_denoise_golden_pattern(rgb, file_name='denoise_golden.pat'):
 
 def gen_wb_golden_pattern(rgb, file_name='wb_golden.pat'):
     with open(file_name, "w") as writer:
-        for k in range(0, rgb.shape[0], 4):
+        for i in range(rgb.shape[0]):
             for j in range(rgb.shape[1]):
-                for i in range(k, k + 4, 1):
-                    writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
+                writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
 
 def gen_gamma_golden_pattern(rgb, file_name='gamma_golden.pat'):
     with open(file_name, "w") as writer:
-        for k in range(0, rgb.shape[0], 4):
+        for i in range(rgb.shape[0]):
             for j in range(rgb.shape[1]):
-                for i in range(k, k + 4, 1):
-                    writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
+                writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
 
-def gen_mean_golden_pattern(rgb_mean, file_name='mean_input.pat'):
+def gen_mean_golden_pattern(rgb_mean, file_name='mean_golden.pat'):
     with open(file_name, "w") as writer:
         writer.write("{0:b}".format(rgb_mean[0]).zfill(8)+" "+"{0:b}".format(rgb_mean[1]).zfill(8)+" "+"{0:b}".format(rgb_mean[2]).zfill(8)+'\n')
         writer.write("{0:b}".format(rgb_mean[3]).zfill(8))
 
-def gen_gain_golden_pattern(rgb_gain, file_name='gain_input.pat'):
+def gen_gain_golden_pattern(rgb_gain, file_name='gain_golden.pat'):
     with open(file_name, "w") as writer:
         writer.write(float_to_fixed16b(rgb_gain[0])+" "+float_to_fixed16b(rgb_gain[1])+" "+float_to_fixed16b(rgb_gain[2]))
 
