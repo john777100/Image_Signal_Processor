@@ -1,5 +1,5 @@
 `include "define.v"
-`include "demosaic.v"
+`include "demosaic_nostart.v"
 `include "denoise.v"
 `include "Mean.v"
 `include "Gain.v"

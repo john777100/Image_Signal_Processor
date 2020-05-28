@@ -1,23 +1,26 @@
 `timescale 1ns/10ps
-include "define.v"
+`include "define.v"
+`include "top.v"
 `define CYCLE 	10
-`define IMG_FILE 	"image.pat"
+`define IMG_DEM_FILE 	"image_dem.pat"
 `define DEM_FILE	"demosaic.pat"
 `define DEN_FILE	"denoise.pat"
 `define MEAN_FILE	"mean.pat"
 `define GAIN_FILE	"gain.pat"
+`define IMG_WB_FILE 	"image_wb.pat"
 `define WB_FILE		"wb.pat"
 `define GAM_FILE	"gamma.pat"
 
 `define IMG_ROW 	1024
 `define IMG_COL 	1024
-`define IMG_LEN     IMG_ROW * (IMG_COL+4) * 2    
-`define DEM_LEN 	IMG_ROW * (IMG_COL+2) * 3/2
-`define DEN_LEN 	IMG_ROW * IMG_COL
+`define IMG_DEM_LEN `IMG_ROW * (`IMG_COL+4) * 2    
+`define DEM_LEN 	`IMG_ROW * (`IMG_COL+2) * 3/2
+`define DEN_LEN 	`IMG_ROW * `IMG_COL
 `define MEAN_LEN 	1
 `define GAIN_LEN 	1
-`define WB_LEN 		IMG_ROW * IMG_COL
-`define GAM_LEN 	IMG_ROW * IMG_COL
+`define IMG_WB_LEN 	`IMG_ROW * `IMG_COL    
+`define WB_LEN 		`IMG_ROW * `IMG_COL
+`define GAM_LEN 	`IMG_ROW * `IMG_COL
 `define TERM_CYCLE  7000000
 
 
@@ -37,8 +40,8 @@ module top_tb;
 	wire						last_pic_out;
 	wire						finish_operation;
 
-	integer tb_finish_flag, dumb, cnt, error, img_file, dem_file, den_file, mean_file, gain_file, wb_file, gam_file, i, output_cnt;
-
+	integer  dumb, cnt, error, img_file, dem_file, den_file, mean_file, gain_file, wb_file, gam_file, i, output_cnt;
+	integer  tb_finish_flag;
 	top top(
 		.clk(clk),
 		.rst_n(rst_n),
@@ -55,7 +58,10 @@ module top_tb;
 		.last_pic_out(last_pic_out),
 		.finish_operation(finish_operation)
 	);
-	reg [`COLOR_DEPTH-1:0] img  [0:`IMG_LEN]
+	reg [`COLOR_DEPTH-1:0] img_dem  [0:`IMG_DEM_LEN];
+	reg [`COLOR_DEPTH-1:0] img_r_wb  [0:`IMG_WB_LEN];
+	reg [`COLOR_DEPTH-1:0] img_g_wb  [0:`IMG_WB_LEN];
+	reg [`COLOR_DEPTH-1:0] img_b_wb  [0:`IMG_WB_LEN];
 	
 	reg	[`COLOR_DEPTH-1:0] dem_r_golden [0:`DEM_LEN-1];
 	reg	[`COLOR_DEPTH-1:0] dem_g_golden [0:`DEM_LEN-1];
@@ -77,14 +83,14 @@ module top_tb;
 	reg	[`COLOR_DEPTH-1:0] wb_g_golden [0:`WB_LEN-1];
 	reg	[`COLOR_DEPTH-1:0] wb_b_golden [0:`WB_LEN-1];
 
-	reg	[`COLOR_DEPTH-1:0] gam_r_golden [0:`GAN_LEN-1];
-	reg	[`COLOR_DEPTH-1:0] gam_g_golden [0:`GAN_LEN-1];
-	reg	[`COLOR_DEPTH-1:0] gam_b_golden [0:`GAN_LEN-1];
+	reg	[`COLOR_DEPTH-1:0] gam_r_golden [0:`GAM_LEN-1];
+	reg	[`COLOR_DEPTH-1:0] gam_g_golden [0:`GAM_LEN-1];
+	reg	[`COLOR_DEPTH-1:0] gam_b_golden [0:`GAM_LEN-1];
     
 	
 	initial begin
         $fsdbDumpfile( "denoise_wave.fsdb" );
-        $fsdbDumpvars(0,denoise_tb, "+mda");
+        $fsdbDumpvars(0,top_tb, "+mda");
     end
     
     initial begin
@@ -107,7 +113,7 @@ module top_tb;
     initial begin
         cnt = 0;
         error = 0;
-        img_file = $fopen(`IMG_FILE , "r");
+        img_file = $fopen(`IMG_DEM_FILE , "r");
 		dem_file = $fopen(`DEM_FILE , "r");
 		den_file = $fopen(`DEN_FILE , "r");
 		mean_file = $fopen(`MEAN_FILE , "r");
@@ -116,7 +122,7 @@ module top_tb;
 		gam_file = $fopen(`GAM_FILE , "r");
 
         while(!$feof(img_file)) begin
-            dumb = $fscanf(img_file, "%b", img[cnt]);
+            dumb = $fscanf(img_file, "%b", img_dem[cnt]);
             cnt = cnt + 1;
         end
         cnt = 0;
@@ -164,61 +170,61 @@ module top_tb;
 		rst_n = 1'b0;
 		#(`CYCLE *3)
 		rst_n = 1'b1;
-		@(negedge clk) mode = STAGE14;
+		@(negedge clk) mode_in = `STAGE14;
 		#(`CYCLE *3)
-		for( i=0; i<`IMG_LEN; i=i+1 ) begin
+		for( i=0; i<`IMG_DEM_LEN; i=i+1 ) begin
 			@(negedge clk) begin
-				pixel_in = img[i];
+				pixel_in = img_dem[i];
 				valid_in = 1'b1;
-				color_in = VOID;
-				last_col_in = i % (IMG_COL+4)*6 == (IMG_COL+4)*6-1;
-				last_pic_in = i == `IMG_LEN-1;
+				color_in = `VOID;
+				last_col_in = i % (`IMG_COL+4)*6 == (`IMG_COL+4)*6-1;
+				last_pic_in = i == `IMG_DEM_LEN-1;
 				#(`CYCLE)
 				valid_in = 1'b0;
 				last_col_in = 1'b0;
 				last_pic_in = 1'b0;
-				#(`CYCLE *3/2)
+				#(`CYCLE *3/2);
 			end
 		end
 	end
 	initial begin
 		tb_finish_flag = 0;
 		output_cnt = 0;
-		while(output_cnt != `OUTPUT_LENGTH) begin
+		while(output_cnt != `DEN_LEN) begin
 			@(negedge clk) begin
 				if(valid_out) begin
-					if(last_pic_out !== (output_cnt === `OUTPUT_LENGTH-1)) begin
+					if(last_pic_out !== (output_cnt === `DEN_LEN-1)) begin
 						error = error+1;
 						$display("\"last_pic_out\" flag error at pixel %d", output_cnt+1 );
 					end
-					if(last_col_out !== (output_cnt % ((IMG_COL+4)*6) == ((IMG_COL+4)*6-1) )) begin
+					if(last_col_out !== (output_cnt % ((`IMG_COL+4)*6) == ((`IMG_COL+4)*6-1) )) begin
 						error = error+1;
 						$display("\"last_col_out\" flag error at pixel %d", output_cnt+1 );
 					end
 
 					case(color_out)
-						RED: begin
+						`RED: begin
 							if(den_r_golden[output_cnt] !== pixel_out) begin
 								error = error +1;
                     			$display("Red of Pixel %d error, expected %b, output %b\n", output_cnt+1, den_r_golden[output_cnt] , pixel_out );
 							end
 						end
-						GREEN: begin
+						`GREEN: begin
 							if(den_g_golden[output_cnt] !== pixel_out) begin
 								error = error +1;
                     			$display("Green of Pixel %d error, expected %b, output %b\n", output_cnt+1, den_g_golden[output_cnt] , pixel_out );
 							end
 
 						end
-						BLUE: begin
+						`BLUE: begin
 							if(den_b_golden[output_cnt] !== pixel_out) begin
 								error = error +1;
                     			$display("Blue of Pixel %d error, expected %b, output %b\n", output_cnt+1, den_b_golden[output_cnt] , pixel_out );
 							end
 							output_cnt = output_cnt+1;
 						end
-						VOID: begin
-                    		$display("Pixel %d error, VOID color is given\n", output_cnt+1 );
+						`VOID: begin
+                    		$display("Pixel %d error, `VOID color is given\n", output_cnt+1 );
 							error = error+1;				
 						end
 					endcase
@@ -230,6 +236,84 @@ module top_tb;
 	end
 `endif
 
+`ifdef STAGE56
+	initial begin
+		rst_n = 1'b0;
+		#(`CYCLE *3)
+		rst_n = 1'b1;
+		@(negedge clk) mode_in = `STAGE56;
+		#(`CYCLE *3)
+		for( i=0; i<`IMG_WB_LEN; i=i+1 ) begin
+			@(negedge clk) begin
+				pixel_in = img_r_wb[i];
+				valid_in = 1'b1;
+				color_in = `RED;
+				last_col_in = 0;
+				last_pic_in = `IMG_WB_LEN-1 == i;
+				#(`CYCLE/2);
+			end
+			@(negedge clk) begin
+				pixel_in = img_g_wb[i];
+				valid_in = 1'b1;
+				color_in = `GREEN;
+				last_col_in = 0;
+				last_pic_in = `IMG_WB_LEN-1 == i;
+				#(`CYCLE/2);
+			end
+			@(negedge clk) begin
+				pixel_in = img_b_wb[i];
+				valid_in = 1'b1;
+				color_in = `BLUE;
+				last_col_in = 0;
+				last_pic_in = `IMG_WB_LEN-1 == i;
+				#(`CYCLE/2);
+			end
+		end
+	end
+	initial begin
+		tb_finish_flag = 0;
+		output_cnt = 0;
+		while(output_cnt != `GAM_LEN) begin
+			@(negedge clk) begin
+				if(valid_out) begin
+					if(last_pic_out !== (output_cnt === `GAM_LEN-1)) begin
+						error = error+1;
+						$display("\"last_pic_out\" flag error at pixel %d", output_cnt+1 );
+					end
+
+					case(color_out)
+						`RED: begin
+							if(gam_r_golden[output_cnt] !== pixel_out) begin
+								error = error +1;
+                    			$display("Red of Pixel %d error, expected %b, output %b\n", output_cnt+1, gam_r_golden[output_cnt] , pixel_out );
+							end
+						end
+						`GREEN: begin
+							if(gam_g_golden[output_cnt] !== pixel_out) begin
+								error = error +1;
+                    			$display("Green of Pixel %d error, expected %b, output %b\n", output_cnt+1, gam_g_golden[output_cnt] , pixel_out );
+							end
+
+						end
+						`BLUE: begin
+							if(gam_b_golden[output_cnt] !== pixel_out) begin
+								error = error +1;
+                    			$display("Blue of Pixel %d error, expected %b, output %b\n", output_cnt+1, gam_b_golden[output_cnt] , pixel_out );
+							end
+							output_cnt = output_cnt+1;
+						end
+						`VOID: begin
+                    		$display("Pixel %d error, Void color is given\n", output_cnt+1 );
+							error = error+1;				
+						end
+					endcase
+				end
+
+			end
+		end
+		tb_finish_flag = 1;	
+	end
+`endif
 
 initial begin
 	while(finish_operation) begin
