@@ -41,7 +41,7 @@ module WB(
 	//assignment
 	assign color_o = color_r;
 	assign valid_o = valid_value_r & valid_gain_r;
-	assign value_o = value_tmp[15:4] > 12'b000011111111 ? 12'b000011111111: value_tmp[11:4];
+	assign value_o = value_tmp[15:4] > 12'b000011111111 ? 8'b11111111: value_tmp[11:4];
 
 	//sequential 
 	always@(posedge clk or negedge rst_n) begin
