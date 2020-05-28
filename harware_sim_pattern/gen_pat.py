@@ -271,15 +271,17 @@ def gen_denoise_golden_pattern(rgb, file_name='denoise_golden.pat'):
 
 def gen_wb_golden_pattern(rgb, file_name='wb_golden.pat'):
     with open(file_name, "w") as writer:
-        for i in range(rgb.shape[0]):
+        for k in range(0, rgb.shape[0], 4):
             for j in range(rgb.shape[1]):
-                writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
+                for i in range(k, k + 4, 1):
+                    writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
 
 def gen_gamma_golden_pattern(rgb, file_name='gamma_golden.pat'):
     with open(file_name, "w") as writer:
-        for i in range(rgb.shape[0]):
+        for k in range(0, rgb.shape[0], 4):
             for j in range(rgb.shape[1]):
-                writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
+                for i in range(k, k + 4, 1):
+                    writer.write("{0:b}".format(rgb[i,j,0]).zfill(8)+" "+"{0:b}".format(rgb[i,j,1]).zfill(8)+" "+"{0:b}".format(rgb[i,j,2]).zfill(8)+'\n')
 
 def gen_mean_golden_pattern(rgb_mean, file_name='mean_golden.pat'):
     with open(file_name, "w") as writer:

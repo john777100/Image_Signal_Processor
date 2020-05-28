@@ -39,7 +39,13 @@ module top(
 	reg						last_pic_out_reg,n_last_pic_out_reg;
 	reg						finish_reg, n_finish_reg;
 
-
+	
+	assign pixel_out   		= pixel_out_reg;
+	assign valid_out   		= valid_out_reg;
+	assign color_out   		= color_out_reg;
+	assign last_col_out		= last_col_out_reg;
+	assign last_pic_out		= last_pic_out_reg;
+	assign finish_operation = finish_reg;
 
 //	reg		[4:0]				size_top, n_size_top;
 //	reg		[`GAIN_BIT_CNT-1:0]	k_r_reg, n_k_r_reg;
@@ -48,12 +54,14 @@ module top(
 //	reg		[`COLOR_DEPTH-1:0]	r_mean_reg, n_r_mean_reg;
 //	reg		[`COLOR_DEPTH-1:0]	g_mean_reg, n_g_mean_reg;
 //	reg		[`COLOR_DEPTH-1:0]	b_mean_reg, n_b_mean_reg;
-	localparam  r_mean_local = 8'd128;
-	localparam  g_mean_local = 8'd128;
-	localparam  b_mean_local = 8'd128;
-	localparam 	k_r_local = 16'd1;
-	localparam 	k_g_local = 16'd1;
-	localparam 	k_b_local = 16'd1;
+
+  
+	localparam  r_mean_local = 8'b00010110;
+	localparam  g_mean_local = 8'b00100110;
+	localparam  b_mean_local = 8'b00010110;
+	localparam 	k_r_local = 16'b0000000100111010;
+	localparam 	k_g_local = 16'b0000000010110101;
+	localparam 	k_b_local = 16'b0000000100111010;
 	
 
 
@@ -79,11 +87,11 @@ module top(
 	wire 						last_col_out_dem;
 	wire 						last_pic_out_dem;
 
-	assign pixel_in_dem		= pixel_in_reg;
-	assign valid_in_dem		= valid_in_reg;		
-	assign color_in_dem		= color_in_reg;		
-	assign last_col_in_dem	= last_col_in_reg;	
-	assign last_pic_in_dem	= last_pic_in_reg;	
+	assign pixel_in_dem		= mode_reg == `STAGE14 || mode_reg == `STAGE11 ? pixel_in_reg : 8'd0;
+	assign valid_in_dem		= mode_reg == `STAGE14 || mode_reg == `STAGE11 ? valid_in_reg : 1'b0;		
+	assign color_in_dem		= mode_reg == `STAGE14 || mode_reg == `STAGE11 ? color_in_reg : `VOID;		
+	assign last_col_in_dem	= mode_reg == `STAGE14 || mode_reg == `STAGE11 ? last_col_in_reg : 1'b0;	
+	assign last_pic_in_dem	= mode_reg == `STAGE14 || mode_reg == `STAGE11 ? last_pic_in_reg : 1'b0;	
 	
 
 
@@ -158,6 +166,11 @@ module top(
 	assign k_r_in_wb			= mode_reg == `STAGE55 ? k_r_local :  k_r_out_gain;
 	assign k_g_in_wb			= mode_reg == `STAGE55 ? k_g_local :  k_g_out_gain;
 	assign k_b_in_wb			= mode_reg == `STAGE55 ? k_b_local :  k_b_out_gain;
+
+//	assign valid_gain_in_wb		= 1'b1;
+//	assign k_r_in_wb			= k_r_local;
+//	assign k_g_in_wb			= k_g_local;
+//	assign k_b_in_wb			= k_b_local;
 
 
 	wire 	[`COLOR_DEPTH-1:0]	pixel_in_gamma;
@@ -351,6 +364,7 @@ always@(posedge clk or negedge rst_n) begin
 		color_out_reg	<= `VOID;   
 		last_col_out_reg <= 0;
 		last_pic_out_reg <= 0;
+		finish_reg 		<=  0;
 	end 
 	else begin
 		pixel_in_reg 	<= pixel_in;     
@@ -364,6 +378,7 @@ always@(posedge clk or negedge rst_n) begin
 		color_out_reg 	<= n_color_out_reg;
 		last_col_out_reg <= n_last_col_out_reg;
 		last_pic_out_reg <= n_last_pic_out_reg;
+		finish_reg 		<=  n_finish_reg;
 	end
 end
 

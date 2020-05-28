@@ -1,3 +1,4 @@
+`include "define.v"
 `define PROCESS_ROW_COUNT 4
 `define INPUT_ROW_COUNT 6
 `define COLOR_DEPTH 8
@@ -7,21 +8,28 @@ module gamma_122(
 	input			rst_n,
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
 	input			valid_in,
-	input	[2:0]	color_in,
+	input	[`COLOR_BIT_CNT-1:0]	color_in,
 	input			last_pic_in,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output			valid_out,
-	output  [2:0]	color_out,
+	output  [`COLOR_BIT_CNT-1:0]	color_out,
 	output			last_pic_out
 );
 reg	[`COLOR_DEPTH-1:0]	pixel_in_reg;
 reg						valid_in_reg;
-reg	[2:0]				color_in_reg;
+reg	[`COLOR_BIT_CNT-1:0]				color_in_reg;
 reg						last_pic_in_reg;
 reg	[`COLOR_DEPTH-1:0]	pixel_out_reg, n_pixel_out_reg;
 reg						valid_out_reg, n_valid_out_reg;
-reg	[2:0]				color_out_reg, n_color_out_reg;
+reg	[`COLOR_BIT_CNT-1:0]				color_out_reg, n_color_out_reg;
 reg						last_pic_out_reg, n_last_pic_out_reg;
+
+assign pixel_out = pixel_out_reg;
+assign valid_out = valid_out_reg;
+assign color_out = color_out_reg;
+assign last_pic_out = last_pic_out_reg;
+
+
 always@(*) begin
 	n_valid_out_reg = valid_in_reg;
 	n_color_out_reg = color_in_reg;

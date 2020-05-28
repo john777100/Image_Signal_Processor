@@ -2,17 +2,18 @@
 `define INPUT_ROW_COUNT 6
 `define COLOR_DEPTH 8
 `define WIN_RADIUS 1
+`include "./define.v"
 module denoise(
 	input			clk,
 	input			rst_n,
 	input 	[`COLOR_DEPTH-1:0]	pixel_in,
 	input			valid_in,
-	input	[2:0]	color_in,
+	input	[`COLOR_BIT_CNT-1:0]	color_in,
 	input			last_col_in,
 	input			last_pic_in,
 	output 	[`COLOR_DEPTH-1:0]	pixel_out,
 	output			valid_out,
-	output  [2:0]	color_out,
+	output  [`COLOR_BIT_CNT-1:0]	color_out,
 	output			last_col_out,
 	output			last_pic_out
 );
@@ -33,12 +34,12 @@ localparam VOID		= 2'd3;
 // IO FF
 reg	[`COLOR_DEPTH-1:0]	pixel_in_reg;
 reg						valid_in_reg;
-reg	[2:0]				color_in_reg;
+reg	[`COLOR_BIT_CNT-1:0] color_in_reg;
 reg						last_col_in_reg;
 reg						last_pic_in_reg;
 reg	[`COLOR_DEPTH-1:0]	pixel_out_reg, n_pixel_out_reg;
 reg						valid_out_reg, n_valid_out_reg;
-reg	[2:0]				color_out_reg, n_color_out_reg;
+reg	[`COLOR_BIT_CNT-1:0]				color_out_reg, n_color_out_reg;
 reg						last_col_out_reg, n_last_col_out_reg;
 reg						last_pic_out_reg, n_last_pic_out_reg;
 assign pixel_out = pixel_out_reg;
@@ -88,7 +89,7 @@ reg [2:0]				counter_0, n_counter_0;
 reg [2:0]				state_1, n_state_1;
 reg 					last_col_1, n_last_col_1;
 reg 					last_pic_1, n_last_pic_1;
-reg [2:0]				color_1, n_color_1;
+reg [`COLOR_BIT_CNT-1:0] color_1, n_color_1;
 reg						init_12_last_flag, n_init_12_last_flag;
 reg [2:0]				counter_1, n_counter_1;
 reg [1:0]				valid_count_0, n_valid_count_0;
@@ -102,7 +103,7 @@ reg [`COLOR_DEPTH+1:0]	sum6, n_sum6;
 reg [2:0]				state_2, n_state_2;
 reg 					last_col_2, n_last_col_2;
 reg 					last_pic_2, n_last_pic_2;
-reg [2:0]				color_2, n_color_2;
+reg [`COLOR_BIT_CNT-1:0] color_2, n_color_2;
 reg [`COLOR_DEPTH+3:0]  sum9, n_sum9;
 reg [`COLOR_DEPTH+3:0]  new_sum6, n_new_sum6;
 
