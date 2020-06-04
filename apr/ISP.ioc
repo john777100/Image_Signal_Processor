@@ -1,0 +1,56 @@
+Version: 1 
+
+Orient: R90
+Pad: CORNER0            NW  CORNERD
+Pad: ipad_pixel_i_0     N   
+Pad: ipad_pixel_i_1     N   
+Pad: ipad_pixel_i_2     N   
+Pad: ipad_pixel_i_3     N       
+Pad: ipad_CoreVDD1      N   VCCKD
+Pad: ipad_CoreVSS1      N   GNDKD
+Pad: ipad_pixel_i_4     N   
+Pad: ipad_pixel_i_5     N   
+Pad: ipad_pixel_i_6     N   
+Pad: ipad_pixel_i_7     N   
+
+Orient: R0 
+Pad: CORNER1            NE  CORNERD
+Pad: ipad_valid_i       W   
+Pad: ipad_color_i_0     W   
+Pad: ipad_color_i_1     W   
+Pad: ipad_last_col      W   
+Pad: ipad_IOVDD1        W   VCC3IOD
+Pad: ipad_IOVSS1        W   GNDIOD
+Pad: ipad_last_pic      W   
+Pad: ipad_mode_i_0      W    
+Pad: ipad_mode_i_1      W   
+Pad: ipad_mode_i_2      W   
+
+Orient: R180
+Pad: CORNER2            SW  CORNERD
+Pad: ipad_pixel_o_0     S   
+Pad: ipad_pixel_o_1     S   
+Pad: ipad_pixel_o_2     S   
+Pad: ipad_pixel_o_3     S   
+Pad: ipad_CoreVSS2      S   GNDKD
+Pad: ipad_CoreVDD2      S   VCCKD
+Pad: ipad_pixel_o_4     S   
+Pad: ipad_pixel_o_5     S   
+Pad: ipad_pixel_o_6     S   
+Pad: ipad_pixel_o_7     S   
+
+Orient: R270
+Pad: CORNER3            SE  CORNERD
+Pad: ipad_valid_o       E   
+Pad: ipad_color_o_0     E   
+Pad: ipad_color_o_1     E   
+Pad: ipad_last_col_o    E    
+Pad: ipad_IOVDD2        E   VCC3IOD
+Pad: ipad_IOVSS2        E   GNDIOD
+Pad: ipad_last_pic_o    E   
+Pad: ipad_finish_operation_o   E    
+Pad: ipad_clk_i         E   
+Pad: ipad_rst_n_i       E   
+
+
+
