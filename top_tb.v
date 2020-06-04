@@ -1,7 +1,8 @@
 `timescale 1ns/10ps
 `include "define.v"
-`include "top.v"
+`include "top_syn.v"
 `define CYCLE 	10
+
 `define IMG_DEM_FILE "demosaic_input.pat"
 `define DEM_FILE	"demosaic_golden.pat"
 `define DEN_FILE	"denoise_golden.pat"
@@ -24,6 +25,8 @@
 
 `define TERM_CYCLE  12000000
 
+//gate-level
+`define SDFFILE "./top.sdf"
 
 module top_tb;
 	reg						clk;
@@ -59,6 +62,11 @@ module top_tb;
 		.last_pic_out(last_pic_out),
 		.finish_operation(finish_operation)
 	);
+
+	`ifdef SDF
+        initial $sdf_annotate(`SDFFILE, top);
+    `endif
+
 	reg [`COLOR_DEPTH-1:0] img_dem  [0:`IMG_DEM_LEN];
 	reg [`COLOR_DEPTH-1:0] img_r_wb  [0:`IMG_WB_LEN];
 	reg [`COLOR_DEPTH-1:0] img_g_wb  [0:`IMG_WB_LEN];
