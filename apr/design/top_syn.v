@@ -7475,7 +7475,24 @@ module top ( clk, rst_n, pixel_in, valid_in, color_in, last_col_in,
         n3610), .Y(n1635) );
 endmodule
 
-module ISP ( clk_p_i, reset_n_i, data_a_i, data_b_i, inst_i, data_o );
+module ISP (i_clk_i,               
+            i_rst_n_i,
+            i_pixel_in_i,
+            i_valid_in_i,
+            i_color_in_i,
+            i_last_col_in_i,
+            i_last_pic_in_i,
+            i_mode_in_i,
+            o_pixel_out_o,
+            o_valid_out_o,
+            o_color_out_o,
+            o_last_col_out_o,
+            o_last_pic_out_o,
+            o_finish_operation_o
+);
+
+
+
 input					i_clk_i;
 input					i_rst_n_i;
 input  [7:0]	        i_pixel_in_i;

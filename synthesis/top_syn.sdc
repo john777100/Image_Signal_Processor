@@ -1,42 +1,82 @@
-#You may modified the clock constraints 
-#or add more constraints for your design
-####################################################
-set cycle  10      
-####################################################
-#The following are design spec. for synthesis
-#You can NOT modify this seciton 
-#####################################################
-create_clock -name CLK -period $cycle [get_ports clk]
-set_fix_hold                          [get_clocks CLK]
-set_dont_touch_network                [get_clocks CLK]
-set_ideal_network                     [get_ports clk]
-set_clock_uncertainty            0.1  [get_clocks CLK] 
-set_clock_latency                0.5  [get_clocks CLK] 
+###################################################################
 
-set_max_fanout 6 [all_inputs] 
+# Created by write_sdc on Sun Aug  2 11:48:08 2015
 
-set_operating_conditions -min_library fast -min fast -max_library slow -max slowset_wire_load_model -name tsmc13_wl10 -library slow  
-set_drive        1     [all_inputs]
-set_load         1     [all_outputs]
-set t_in   0.3
-set t_out  0.3
-set_input_delay  $t_in  -clock CLK [remove_from_collection [all_inputs] [get_ports clk]]
-set_output_delay $t_out -clock CLK [all_outputs]
-#####################################################
+###################################################################
+set sdc_version 2.0
 
-#compile and save files
-#You may modified setting of compile 
-#####################################################
-compile_ultra
-write_sdf -version 2.1 top_1.sdf
-write -format verilog -hier -output top_syn_1.v
-write -format ddc     -hier -output top_1.ddc  
-#####################################################  
-
-
-
-
-
-
-
-
+set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
+set_operating_conditions -max WCCOM -max_library                               \
+fsa0m_a_generic_core_ss1p62v125c\
+                         -min BCCOM -min_library                               \
+fsa0m_a_generic_core_ff1p98vm40c
+set_wire_load_model -name G200K -library fsa0m_a_generic_core_tt1p8v25c
+set_max_fanout 6 [current_design]
+set_max_area 0
+set_load -pin_load 1 [get_ports {finish_operation}]
+set_load -pin_load 1 [get_ports {last_pic_out}]
+set_load -pin_load 1 [get_ports {last_col_out}]
+set_load -pin_load 1 [get_ports {color_out[1]}]
+set_load -pin_load 1 [get_ports {color_out[0]}]
+set_load -pin_load 1 [get_ports {valid_out}]
+set_load -pin_load 1 [get_ports {pixel_out[7]}]
+set_load -pin_load 1 [get_ports {pixel_out[6]}]
+set_load -pin_load 1 [get_ports {pixel_out[5]}]
+set_load -pin_load 1 [get_ports {pixel_out[4]}]
+set_load -pin_load 1 [get_ports {pixel_out[3]}]
+set_load -pin_load 1 [get_ports {pixel_out[2]}]
+set_load -pin_load 1 [get_ports {pixel_out[1]}]
+set_load -pin_load 1 [get_ports {pixel_out[0]}]
+create_clock [get_ports clk]  -period 10  -waveform {0 5}
+set_clock_latency 0.5  [get_clocks clk]
+set_clock_uncertainty 0.1  [get_clocks clk]
+set_input_delay -clock clk  -max 1  [get_ports clk]
+set_input_delay -clock clk  -max 1  [get_ports rst_n]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[7]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[6]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[5]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[4]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[3]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[2]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[1]}]
+set_input_delay -clock clk  -max 1  [get_ports {pixel_in[0]}]
+set_input_delay -clock clk  -max 1  [get_ports {color_in[1]}]
+set_input_delay -clock clk  -max 1  [get_ports {color_in[0]}]
+set_input_delay -clock clk  -max 1  [get_ports {valid_in}]
+set_input_delay -clock clk  -max 1  [get_ports {last_col_in}]
+set_input_delay -clock clk  -max 1  [get_ports {last_pic_in}]
+set_input_delay -clock clk  -max 1  [get_ports {mode_in[2]}]
+set_input_delay -clock clk  -max 1  [get_ports {mode_in[1]}]
+set_input_delay -clock clk  -max 1  [get_ports {mode_in[0]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[7]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[6]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[5]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[4]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[3]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[2]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[1]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {pixel_out[0]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {color_out[1]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {color_out[0]}]
+set_output_delay -clock clk  -min 0.5  [get_ports {valid_out}]
+set_output_delay -clock clk  -min 0.5  [get_ports {last_col_out}]
+set_output_delay -clock clk  -min 0.5  [get_ports {last_pic_out}]
+set_output_delay -clock clk  -min 0.5  [get_ports {finish_operation}]
+set_drive 1  [get_ports clk] 
+set_drive 1  [get_ports rst_n]
+set_drive 1  [get_ports {pixel_in[7]}]
+set_drive 1  [get_ports {pixel_in[6]}]
+set_drive 1  [get_ports {pixel_in[5]}]
+set_drive 1  [get_ports {pixel_in[4]}]
+set_drive 1  [get_ports {pixel_in[3]}]
+set_drive 1  [get_ports {pixel_in[2]}]
+set_drive 1  [get_ports {pixel_in[1]}]
+set_drive 1  [get_ports {pixel_in[0]}]
+set_drive 1  [get_ports {color_in[1]}]
+set_drive 1  [get_ports {color_in[0]}]
+set_drive 1  [get_ports {valid_in}]   
+set_drive 1  [get_ports {last_col_in}]
+set_drive 1  [get_ports {last_pic_in}]
+set_drive 1  [get_ports {mode_in[2]}] 
+set_drive 1  [get_ports {mode_in[1]}] 
+set_drive 1  [get_ports {mode_in[0]}] 
