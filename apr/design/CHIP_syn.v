@@ -9389,7 +9389,7 @@ module top ( clk, rst_n, pixel_in, valid_in, color_in, last_col_in,
   MOAI1S U4683 ( .A1(n1769), .A2(n3582), .B1(n1769), .B2(n1843), .O(n1063) );
 endmodule
 
-module ISP (i_clk_i,               
+module CHIP (i_clk_i,               
             i_rst_n_i,
             i_pixel_in_i,
             i_valid_in_i,
