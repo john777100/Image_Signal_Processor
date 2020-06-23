@@ -251,11 +251,11 @@ def print_stage_string(stage='demosaic', comment=''):
 
 
 
-#bayer = get_raw_data()
-png = get_png()
-bayer = mosaic_png(png)
+bayer = get_raw_data()
+#png = get_png()
+#bayer = mosaic_png(png)
 bayer = bayer//1
-output_image_v2(bayer, stage='mosaic', comment = 'png_to_bayer')
+output_image_v2(bayer, stage='raw', comment = '')
 
 print_stage_string(stage = 'demosaic')
 rgb = demosaic(bayer)
