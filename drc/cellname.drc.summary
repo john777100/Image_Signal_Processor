@@ -1,0 +1,754 @@
+
+
+==================================================================================
+=== CALIBRE::DRC-F SUMMARY REPORT
+===
+Execution Date/Time:       Wed Jul  1 20:01:47 2020
+Calibre Version:           v2019.2_14.13    Tue Apr 9 20:09:15 PDT 2019
+Rule File Pathname:        G-DF-Mixed_Mode_RFCMOS18-1.8v_3.3v-1P6M-MMC-Calibre-DRC-2.11_P2
+Rule File Title:           
+Layout System:             GDS
+Layout Path(s):            ../CHIP.gds
+Layout Primary Cell:       CHIP
+Current Directory:         /home/raid7_2/userb06/b05026/ICDlab/Project/DRC_1450/BaseRule
+User Name:                 b05026
+Maximum Results/RuleCheck: 1000
+Maximum Result Vertices:   4096
+DRC Results Database:      ./QA_pass.db (ASCII)
+Layout Depth:              ALL
+Text Depth:                PRIMARY
+Summary Report File:       ./QA_pass.sum (REPLACE)
+Geometry Flagging:         ACUTE = YES  SKEW = NO  ANGLED = NO  OFFGRID = YES
+                           NONSIMPLE POLYGON = NO  NONSIMPLE PATH = NO
+Excluded Cells:           
+CheckText Mapping:         COMMENT TEXT + RULE FILE INFORMATION
+Layers:                    MEMORY-BASED
+Keep Empty Checks:         NO
+----------------------------------------------------------------------------------
+--- RUNTIME WARNINGS
+---
+----------------------------------------------------------------------------------
+--- ORIGINAL LAYER STATISTICS
+---
+LAYER IND ......... TOTAL Original Geometry Count = 0
+LAYER M1RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME1 ......... TOTAL Original Geometry Count = 156252
+LAYER M2RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME2 ......... TOTAL Original Geometry Count = 71431
+LAYER M3RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME3 ......... TOTAL Original Geometry Count = 31221
+LAYER M4RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME4 ......... TOTAL Original Geometry Count = 6370
+LAYER M5RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME5 ......... TOTAL Original Geometry Count = 2488
+LAYER M6RESMK ..... TOTAL Original Geometry Count = 0
+LAYER ME6 ......... TOTAL Original Geometry Count = 160
+LAYER PAD ......... TOTAL Original Geometry Count = 0
+LAYER NWR ......... TOTAL Original Geometry Count = 0
+LAYER NWEL ........ TOTAL Original Geometry Count = 0
+LAYER ROM_ID ...... TOTAL Original Geometry Count = 0
+LAYER DP_ID ....... TOTAL Original Geometry Count = 0
+LAYER BLSP_ID1 .... TOTAL Original Geometry Count = 0
+LAYER BLSP_ID2 .... TOTAL Original Geometry Count = 0
+LAYER DP_ID2 ...... TOTAL Original Geometry Count = 0
+LAYER BDSP_ID ..... TOTAL Original Geometry Count = 0
+LAYER DP_ID1 ...... TOTAL Original Geometry Count = 0
+LAYER IOID ........ TOTAL Original Geometry Count = 0
+LAYER DIFFDUMY .... TOTAL Original Geometry Count = 0
+LAYER DIFF ........ TOTAL Original Geometry Count = 0
+LAYER TWEL ........ TOTAL Original Geometry Count = 0
+LAYER BLSP_1A ..... TOTAL Original Geometry Count = 0
+LAYER TG .......... TOTAL Original Geometry Count = 0
+LAYER PPLUS ....... TOTAL Original Geometry Count = 0
+LAYER PO1 ......... TOTAL Original Geometry Count = 0
+LAYER CONT ........ TOTAL Original Geometry Count = 0
+LAYER SAB ......... TOTAL Original Geometry Count = 0
+LAYER HR .......... TOTAL Original Geometry Count = 0
+LAYER M1DUMY ...... TOTAL Original Geometry Count = 0
+LAYER M2DUMY ...... TOTAL Original Geometry Count = 0
+LAYER M3DUMY ...... TOTAL Original Geometry Count = 0
+LAYER M4DUMY ...... TOTAL Original Geometry Count = 0
+LAYER M5DUMY ...... TOTAL Original Geometry Count = 0
+LAYER M6DUMY ...... TOTAL Original Geometry Count = 0
+LAYER VTPL ........ TOTAL Original Geometry Count = 0
+LAYER VTPHL ....... TOTAL Original Geometry Count = 0
+LAYER VTNL ........ TOTAL Original Geometry Count = 0
+LAYER VTNI ........ TOTAL Original Geometry Count = 0
+LAYER VTNHL ....... TOTAL Original Geometry Count = 0
+LAYER NPLUS ....... TOTAL Original Geometry Count = 0
+LAYER RSYMBOL ..... TOTAL Original Geometry Count = 0
+LAYER PSYMBOL ..... TOTAL Original Geometry Count = 0
+LAYER VI1 ......... TOTAL Original Geometry Count = 23636
+LAYER VI2 ......... TOTAL Original Geometry Count = 14037
+LAYER VI3 ......... TOTAL Original Geometry Count = 3132
+LAYER VI4 ......... TOTAL Original Geometry Count = 23704
+LAYER VI5 ......... TOTAL Original Geometry Count = 0
+LAYER MMC ......... TOTAL Original Geometry Count = 0
+LAYER SEALRMARK ... TOTAL Original Geometry Count = 0
+LAYER M1SLMK ...... TOTAL Original Geometry Count = 0
+LAYER M2SLMK ...... TOTAL Original Geometry Count = 0
+LAYER M3SLMK ...... TOTAL Original Geometry Count = 0
+LAYER M4SLMK ...... TOTAL Original Geometry Count = 0
+LAYER M5SLMK ...... TOTAL Original Geometry Count = 0
+LAYER M6SLMK ...... TOTAL Original Geometry Count = 0
+LAYER BLSPLP ...... TOTAL Original Geometry Count = 0
+LAYER LOGOMK ...... TOTAL Original Geometry Count = 0
+LAYER PESD ........ TOTAL Original Geometry Count = 0
+LAYER MCAP ........ TOTAL Original Geometry Count = 0
+LAYER XOPCD ....... TOTAL Original Geometry Count = 0
+LAYER XOPCP ....... TOTAL Original Geometry Count = 0
+LAYER XOPCM1 ...... TOTAL Original Geometry Count = 0
+LAYER PWBLK ....... TOTAL Original Geometry Count = 0
+LAYER RFMMCMK ..... TOTAL Original Geometry Count = 0
+LAYER VI6 ......... TOTAL Original Geometry Count = 0
+----------------------------------------------------------------------------------
+--- RULECHECK RESULTS STATISTICS
+---
+RULECHECK Off_Grid ................................ TOTAL Result Count = 0
+RULECHECK SkewEdge ................................ TOTAL Result Count = 0
+RULECHECK 4.1A.a__4.1A.b__4.1B .................... TOTAL Result Count = 0
+RULECHECK 4.1C.a_b ................................ TOTAL Result Count = 0
+RULECHECK 4.1D.a .................................. TOTAL Result Count = 0
+RULECHECK 4.1D.b .................................. TOTAL Result Count = 0
+RULECHECK 4.1E .................................... TOTAL Result Count = 0
+RULECHECK 4.1F .................................... TOTAL Result Count = 0
+RULECHECK 4.1G.a .................................. TOTAL Result Count = 0
+RULECHECK 4.1G.b .................................. TOTAL Result Count = 0
+RULECHECK 4.1H.a .................................. TOTAL Result Count = 0
+RULECHECK 4.1H.b .................................. TOTAL Result Count = 0
+RULECHECK 4.1I .................................... TOTAL Result Count = 0
+RULECHECK 4.1J .................................... TOTAL Result Count = 0
+RULECHECK 4.1K.a .................................. TOTAL Result Count = 0
+RULECHECK 4.1K.b .................................. TOTAL Result Count = 0
+RULECHECK 4.1M .................................... TOTAL Result Count = 1
+RULECHECK 4.1N .................................... TOTAL Result Count = 0
+RULECHECK 4.2A.a .................................. TOTAL Result Count = 0
+RULECHECK 4.2A.b .................................. TOTAL Result Count = 0
+RULECHECK 4.2A.c .................................. TOTAL Result Count = 0
+RULECHECK 4.2B.a .................................. TOTAL Result Count = 0
+RULECHECK 4.2B.b1 ................................. TOTAL Result Count = 0
+RULECHECK 4.2B.b2 ................................. TOTAL Result Count = 0
+RULECHECK 4.2B.c_d ................................ TOTAL Result Count = 0
+RULECHECK 4.2C_2D ................................. TOTAL Result Count = 0
+RULECHECK 4.3A .................................... TOTAL Result Count = 0
+RULECHECK 4.3B.a .................................. TOTAL Result Count = 0
+RULECHECK 4.3B.b1 ................................. TOTAL Result Count = 0
+RULECHECK 4.3B.b2 ................................. TOTAL Result Count = 0
+RULECHECK 4.3C .................................... TOTAL Result Count = 0
+RULECHECK 4.4A .................................... TOTAL Result Count = 0
+RULECHECK 4.4B .................................... TOTAL Result Count = 0
+RULECHECK 4.4C .................................... TOTAL Result Count = 0
+RULECHECK 4.4D .................................... TOTAL Result Count = 0
+RULECHECK 4.4E .................................... TOTAL Result Count = 0
+RULECHECK 4.4F .................................... TOTAL Result Count = 0
+RULECHECK 4.4G .................................... TOTAL Result Count = 0
+RULECHECK 4.5A .................................... TOTAL Result Count = 0
+RULECHECK 4.5B .................................... TOTAL Result Count = 0
+RULECHECK 4.5C .................................... TOTAL Result Count = 0
+RULECHECK 4.5D .................................... TOTAL Result Count = 0
+RULECHECK 4.5E .................................... TOTAL Result Count = 0
+RULECHECK 4.5F .................................... TOTAL Result Count = 0
+RULECHECK 4.5G .................................... TOTAL Result Count = 0
+RULECHECK 4.6A .................................... TOTAL Result Count = 0
+RULECHECK 4.7A.a .................................. TOTAL Result Count = 0
+RULECHECK 4.7A.b .................................. TOTAL Result Count = 0
+RULECHECK 4.7B .................................... TOTAL Result Count = 0
+RULECHECK 4.7C .................................... TOTAL Result Count = 0
+RULECHECK 4.7D .................................... TOTAL Result Count = 0
+RULECHECK 4.7E .................................... TOTAL Result Count = 0
+RULECHECK 4.7F .................................... TOTAL Result Count = 0
+RULECHECK 4.7G .................................... TOTAL Result Count = 0
+RULECHECK 4.7.NOTE ................................ TOTAL Result Count = 0
+RULECHECK 4.8A .................................... TOTAL Result Count = 0
+RULECHECK 4.8B .................................... TOTAL Result Count = 0
+RULECHECK 4.8C .................................... TOTAL Result Count = 0
+RULECHECK 4.8D .................................... TOTAL Result Count = 0
+RULECHECK 4.8E .................................... TOTAL Result Count = 0
+RULECHECK 4.8F .................................... TOTAL Result Count = 0
+RULECHECK 4.8G .................................... TOTAL Result Count = 0
+RULECHECK 4.8.NOTE ................................ TOTAL Result Count = 0
+RULECHECK 4.9A .................................... TOTAL Result Count = 0
+RULECHECK 4.9B .................................... TOTAL Result Count = 0
+RULECHECK 4.9C .................................... TOTAL Result Count = 0
+RULECHECK 4.9D .................................... TOTAL Result Count = 0
+RULECHECK 4.9E .................................... TOTAL Result Count = 0
+RULECHECK 4.9F .................................... TOTAL Result Count = 0
+RULECHECK 4.9G .................................... TOTAL Result Count = 0
+RULECHECK 4.9.NOTE ................................ TOTAL Result Count = 0
+RULECHECK 4.13A ................................... TOTAL Result Count = 0
+RULECHECK 4.13B ................................... TOTAL Result Count = 0
+RULECHECK 4.13C ................................... TOTAL Result Count = 0
+RULECHECK 4.13D ................................... TOTAL Result Count = 0
+RULECHECK 4.13E ................................... TOTAL Result Count = 0
+RULECHECK 4.13F ................................... TOTAL Result Count = 0
+RULECHECK 4.14A.a__4.14B.a__4.14C ................. TOTAL Result Count = 0
+RULECHECK 4.14A_14B.b ............................. TOTAL Result Count = 0
+RULECHECK 4.14D.a1 ................................ TOTAL Result Count = 0
+RULECHECK 4.14D.a2 ................................ TOTAL Result Count = 0
+RULECHECK 4.14D.b1 ................................ TOTAL Result Count = 0
+RULECHECK 4.14D.b2 ................................ TOTAL Result Count = 0
+RULECHECK 4.14D.c1 ................................ TOTAL Result Count = 0
+RULECHECK 4.14D.c21 ............................... TOTAL Result Count = 0
+RULECHECK 4.14D.c22 ............................... TOTAL Result Count = 0
+RULECHECK 4.14E ................................... TOTAL Result Count = 0
+RULECHECK 4.14F ................................... TOTAL Result Count = 0
+RULECHECK 4.14G ................................... TOTAL Result Count = 0
+RULECHECK 4.14H ................................... TOTAL Result Count = 0
+RULECHECK 4.14I.a ................................. TOTAL Result Count = 0
+RULECHECK 4.14I.b ................................. TOTAL Result Count = 0
+RULECHECK 4.14J ................................... TOTAL Result Count = 0
+RULECHECK 4.14K ................................... TOTAL Result Count = 0
+RULECHECK RECOMMEND_4.14L ......................... TOTAL Result Count = 0
+RULECHECK RECOMMEND_4.14M ......................... TOTAL Result Count = 0
+RULECHECK 4.14N ................................... TOTAL Result Count = 0
+RULECHECK 4.14O ................................... TOTAL Result Count = 0
+RULECHECK 4.15A ................................... TOTAL Result Count = 0
+RULECHECK 4.15B ................................... TOTAL Result Count = 0
+RULECHECK 4.15C ................................... TOTAL Result Count = 0
+RULECHECK 4.15D ................................... TOTAL Result Count = 0
+RULECHECK 4.15E_15Note ............................ TOTAL Result Count = 0
+RULECHECK 4.15F ................................... TOTAL Result Count = 0
+RULECHECK 4.15G ................................... TOTAL Result Count = 0
+RULECHECK 4.15H ................................... TOTAL Result Count = 0
+RULECHECK 4.15I ................................... TOTAL Result Count = 0
+RULECHECK 4.15J ................................... TOTAL Result Count = 0
+RULECHECK 4.15K ................................... TOTAL Result Count = 0
+RULECHECK 4.15L_15M ............................... TOTAL Result Count = 0
+RULECHECK 4.15N ................................... TOTAL Result Count = 0
+RULECHECK 4.15O ................................... TOTAL Result Count = 0
+RULECHECK 4.15P ................................... TOTAL Result Count = 0
+RULECHECK 4.16A ................................... TOTAL Result Count = 0
+RULECHECK 4.16B ................................... TOTAL Result Count = 0
+RULECHECK 4.16C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.16C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.16D.a ................................. TOTAL Result Count = 0
+RULECHECK 4.16D.b ................................. TOTAL Result Count = 0
+RULECHECK 4.16F_17F ............................... TOTAL Result Count = 0
+RULECHECK 4.16N ................................... TOTAL Result Count = 0
+RULECHECK RECOMMEND_4.16.ERR ...................... TOTAL Result Count = 0
+RULECHECK 4.16O ................................... TOTAL Result Count = 0
+RULECHECK 4.16P ................................... TOTAL Result Count = 0
+RULECHECK 4.17A ................................... TOTAL Result Count = 0
+RULECHECK 4.17B ................................... TOTAL Result Count = 0
+RULECHECK 4.17C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.17C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.17D.a ................................. TOTAL Result Count = 0
+RULECHECK 4.17D.b ................................. TOTAL Result Count = 0
+RULECHECK 4.17O ................................... TOTAL Result Count = 0
+RULECHECK 4.17P ................................... TOTAL Result Count = 0
+RULECHECK 4.16H_17G ............................... TOTAL Result Count = 0
+RULECHECK 4.16G_17H ............................... TOTAL Result Count = 0
+RULECHECK 4.16J_17I ............................... TOTAL Result Count = 0
+RULECHECK 4.16I_17J ............................... TOTAL Result Count = 0
+RULECHECK 4.16L_17K ............................... TOTAL Result Count = 0
+RULECHECK 4.16K_17L ............................... TOTAL Result Count = 0
+RULECHECK 4.16M_17M ............................... TOTAL Result Count = 0
+RULECHECK 4.17N ................................... TOTAL Result Count = 0
+RULECHECK 4.18A ................................... TOTAL Result Count = 0
+RULECHECK 4.18B ................................... TOTAL Result Count = 0
+RULECHECK 4.18E ................................... TOTAL Result Count = 0
+RULECHECK 4.18F ................................... TOTAL Result Count = 0
+RULECHECK 4.18G.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.18H ................................... TOTAL Result Count = 0
+RULECHECK 4.18C__4.18I.b__4.18T ................... TOTAL Result Count = 0
+RULECHECK 4.18K ................................... TOTAL Result Count = 0
+RULECHECK 4.18L ................................... TOTAL Result Count = 0
+RULECHECK RECOMMEND_4.18 .......................... TOTAL Result Count = 0
+RULECHECK 4.18M ................................... TOTAL Result Count = 0
+RULECHECK 4.18N ................................... TOTAL Result Count = 0
+RULECHECK 4.18O ................................... TOTAL Result Count = 0
+RULECHECK 4.18P ................................... TOTAL Result Count = 0
+RULECHECK 4.18Q ................................... TOTAL Result Count = 0
+RULECHECK 4.18R ................................... TOTAL Result Count = 0
+RULECHECK 4.18S ................................... TOTAL Result Count = 0
+RULECHECK 4.18V.a ................................. TOTAL Result Count = 0
+RULECHECK 4.18V.b ................................. TOTAL Result Count = 0
+RULECHECK 4.18W.a ................................. TOTAL Result Count = 0
+RULECHECK 4.18W.b ................................. TOTAL Result Count = 0
+RULECHECK 4.18Y1.a ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y1.b ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y2.a ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y2.b ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y3.a ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y3.b ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y4.a ................................ TOTAL Result Count = 0
+RULECHECK 4.18Y4.b ................................ TOTAL Result Count = 0
+RULECHECK 4.19A ................................... TOTAL Result Count = 0
+RULECHECK 4.19B ................................... TOTAL Result Count = 0
+RULECHECK 4.19I__4.19C.a .......................... TOTAL Result Count = 0
+RULECHECK 4.19C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.19D ................................... TOTAL Result Count = 0
+RULECHECK 4.19E ................................... TOTAL Result Count = 0
+RULECHECK 4.19F_19G ............................... TOTAL Result Count = 0
+RULECHECK 4.20A ................................... TOTAL Result Count = 0
+RULECHECK 4.20B.a ................................. TOTAL Result Count = 0
+RULECHECK 4.20B.b ................................. TOTAL Result Count = 0
+RULECHECK 4.20D.a_d ............................... TOTAL Result Count = 0
+RULECHECK 4.20D.b_c_e ............................. TOTAL Result Count = 0
+RULECHECK 4.20E ................................... TOTAL Result Count = 0
+RULECHECK 4.21A ................................... TOTAL Result Count = 0
+RULECHECK 4.21B.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.21C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.21C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.21C.c_d_e ............................. TOTAL Result Count = 0
+RULECHECK 4.22A ................................... TOTAL Result Count = 0
+RULECHECK 4.22B.a ................................. TOTAL Result Count = 0
+RULECHECK 4.22B.b ................................. TOTAL Result Count = 0
+RULECHECK 4.22D.a_d ............................... TOTAL Result Count = 0
+RULECHECK 4.22D.b_c_e ............................. TOTAL Result Count = 0
+RULECHECK 4.22E ................................... TOTAL Result Count = 0
+RULECHECK 4.23A ................................... TOTAL Result Count = 0
+RULECHECK 4.23B.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.23C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.23C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.23C.c_d_e ............................. TOTAL Result Count = 0
+RULECHECK 4.24A ................................... TOTAL Result Count = 0
+RULECHECK 4.24B.a ................................. TOTAL Result Count = 0
+RULECHECK 4.24B.b ................................. TOTAL Result Count = 0
+RULECHECK 4.24D.a_d ............................... TOTAL Result Count = 0
+RULECHECK 4.24D.b_c_e ............................. TOTAL Result Count = 0
+RULECHECK 4.24E ................................... TOTAL Result Count = 0
+RULECHECK 4.25A ................................... TOTAL Result Count = 0
+RULECHECK 4.25B.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.25C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.25C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.25C.c_d_e ............................. TOTAL Result Count = 0
+RULECHECK 4.26A ................................... TOTAL Result Count = 0
+RULECHECK 4.26B.a ................................. TOTAL Result Count = 0
+RULECHECK 4.26B.b ................................. TOTAL Result Count = 0
+RULECHECK 4.26D.a_d ............................... TOTAL Result Count = 0
+RULECHECK 4.26D.b_c_e ............................. TOTAL Result Count = 0
+RULECHECK 4.26E ................................... TOTAL Result Count = 0
+RULECHECK 4.27A ................................... TOTAL Result Count = 0
+RULECHECK 4.27B.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.27C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.27C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.27C.c_d_e ............................. TOTAL Result Count = 0
+RULECHECK 4.28A ................................... TOTAL Result Count = 0
+RULECHECK 4.28B.a ................................. TOTAL Result Count = 0
+RULECHECK 4.28B.b ................................. TOTAL Result Count = 0
+RULECHECK 4.28D.a_d ............................... TOTAL Result Count = 0
+RULECHECK 4.28D.b_c_e ............................. TOTAL Result Count = 0
+RULECHECK 4.28E ................................... TOTAL Result Count = 0
+RULECHECK 4.30A ................................... TOTAL Result Count = 0
+RULECHECK 4.30B.a_b ............................... TOTAL Result Count = 0
+RULECHECK 4.30C.a ................................. TOTAL Result Count = 0
+RULECHECK 4.30C.b ................................. TOTAL Result Count = 0
+RULECHECK 4.30C.c_d_e ............................. TOTAL Result Count = 0
+RULECHECK 4.29A ................................... TOTAL Result Count = 0
+RULECHECK 4.29B ................................... TOTAL Result Count = 0
+RULECHECK 4.29C ................................... TOTAL Result Count = 0
+RULECHECK 4.29D ................................... TOTAL Result Count = 0
+RULECHECK 4.29E ................................... TOTAL Result Count = 0
+RULECHECK 4.29F ................................... TOTAL Result Count = 0
+RULECHECK 4.29G ................................... TOTAL Result Count = 0
+RULECHECK 4.29H ................................... TOTAL Result Count = 0
+RULECHECK 4.29I.a ................................. TOTAL Result Count = 0
+RULECHECK 4.29I.b ................................. TOTAL Result Count = 0
+RULECHECK 4.29I.c ................................. TOTAL Result Count = 0
+RULECHECK 4.29J ................................... TOTAL Result Count = 0
+RULECHECK 4.29K ................................... TOTAL Result Count = 0
+RULECHECK 4.29L ................................... TOTAL Result Count = 0
+RULECHECK 4.29NOTICE .............................. TOTAL Result Count = 1
+RULECHECK 4.31A.8KA ............................... NOT EXECUTED
+RULECHECK 4.31B.a.8KA ............................. NOT EXECUTED
+RULECHECK 4.31B.b.8KA ............................. NOT EXECUTED
+RULECHECK 4.31C.a_d.8KA ........................... NOT EXECUTED
+RULECHECK 4.31C.b_c_e.8KA ......................... NOT EXECUTED
+RULECHECK 4.31D.8KA ............................... NOT EXECUTED
+RULECHECK 4.31A.20KA .............................. TOTAL Result Count = 0
+RULECHECK 4.31B.a.20KA ............................ TOTAL Result Count = 0
+RULECHECK 4.31B.b.20KA ............................ TOTAL Result Count = 0
+RULECHECK 4.31C.20KA .............................. TOTAL Result Count = 0
+RULECHECK 4.31D.20KA .............................. TOTAL Result Count = 0
+RULECHECK 4.31A.12KA .............................. NOT EXECUTED
+RULECHECK 4.31B.a.12KA ............................ NOT EXECUTED
+RULECHECK 4.31B.b.12KA ............................ NOT EXECUTED
+RULECHECK 4.31C.12KA .............................. NOT EXECUTED
+RULECHECK 4.31D.12KA .............................. NOT EXECUTED
+RULECHECK 4.31H ................................... TOTAL Result Count = 0
+RULECHECK 4.33A ................................... TOTAL Result Count = 0
+RULECHECK 4.33B ................................... TOTAL Result Count = 0
+RULECHECK 4.20F ................................... TOTAL Result Count = 1
+RULECHECK 4.20G ................................... TOTAL Result Count = 1
+RULECHECK 4.22F ................................... TOTAL Result Count = 1
+RULECHECK 4.22G ................................... TOTAL Result Count = 1
+RULECHECK 4.24F ................................... TOTAL Result Count = 1
+RULECHECK 4.24G ................................... TOTAL Result Count = 1
+RULECHECK 4.26F ................................... TOTAL Result Count = 1
+RULECHECK 4.26G ................................... TOTAL Result Count = 1
+RULECHECK 4.28F ................................... TOTAL Result Count = 1
+RULECHECK 4.28G ................................... TOTAL Result Count = 1
+RULECHECK 4.31E ................................... TOTAL Result Count = 1
+RULECHECK 4.31F ................................... TOTAL Result Count = 1
+RULECHECK 4.20C ................................... TOTAL Result Count = 4
+RULECHECK 4.22C ................................... TOTAL Result Count = 4
+RULECHECK 4.24C ................................... TOTAL Result Count = 4
+RULECHECK 4.26C ................................... TOTAL Result Count = 0
+RULECHECK 4.28C ................................... TOTAL Result Count = 1
+RULECHECK 6Aa.ME1 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME1 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME1 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME1 ................................. NOT EXECUTED
+RULECHECK 6Aa.ME2 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME2 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME2 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME2 ................................. NOT EXECUTED
+RULECHECK 6Aa.ME3 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME3 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME3 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME3 ................................. NOT EXECUTED
+RULECHECK 6Aa.ME4 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME4 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME4 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME4 ................................. NOT EXECUTED
+RULECHECK 6Aa.ME5 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME5 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME5 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME5 ................................. NOT EXECUTED
+RULECHECK 6Aa.ME6 ................................. NOT EXECUTED
+RULECHECK 6Ab.ME6 ................................. NOT EXECUTED
+RULECHECK 6Ba.ME6 ................................. NOT EXECUTED
+RULECHECK 6Bb.ME6 ................................. NOT EXECUTED
+RULECHECK RECOMMEND_DUMMY_DIFF .................... TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY1 ........................ TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY2 ........................ TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY3 ........................ TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY4 ........................ TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY5 ........................ TOTAL Result Count = 0
+RULECHECK RECOMMEND_DUMMY6 ........................ TOTAL Result Count = 0
+RULECHECK 5.1B .................................... NOT EXECUTED
+RULECHECK 5.1C .................................... NOT EXECUTED
+RULECHECK 5.1D .................................... NOT EXECUTED
+RULECHECK 5.1E .................................... NOT EXECUTED
+RULECHECK 5.1F .................................... NOT EXECUTED
+RULECHECK 5.1G .................................... NOT EXECUTED
+RULECHECK 5.1H .................................... NOT EXECUTED
+RULECHECK 5.1I .................................... NOT EXECUTED
+RULECHECK 5.1J .................................... NOT EXECUTED
+RULECHECK 5.1L .................................... NOT EXECUTED
+RULECHECK 5.1M .................................... NOT EXECUTED
+RULECHECK 5.1N .................................... NOT EXECUTED
+RULECHECK 5.1O .................................... NOT EXECUTED
+RULECHECK 5.1P .................................... NOT EXECUTED
+RULECHECK 5.1R .................................... NOT EXECUTED
+RULECHECK 5.1Q .................................... NOT EXECUTED
+RULECHECK 5.1S .................................... NOT EXECUTED
+RULECHECK 5.1T .................................... NOT EXECUTED
+RULECHECK 5.1U .................................... NOT EXECUTED
+RULECHECK 5.1V .................................... NOT EXECUTED
+RULECHECK 5.1W .................................... NOT EXECUTED
+RULECHECK 5.RECOMMEND ............................. NOT EXECUTED
+RULECHECK 5.NOTICE1 ............................... NOT EXECUTED
+RULECHECK 5.NOTICE2 ............................... NOT EXECUTED
+RULECHECK 6.1A.M1 ................................. TOTAL Result Count = 0
+RULECHECK 6.1B.M1 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M1 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M1 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M1 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M1 ............................... TOTAL Result Count = 0
+RULECHECK 6.1A.M2 ................................. TOTAL Result Count = 0
+RULECHECK 6.1B.M2 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M2 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M2 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M2 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M2 ............................... TOTAL Result Count = 0
+RULECHECK 6.1A.M3 ................................. TOTAL Result Count = 0
+RULECHECK 6.1B.M3 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M3 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M3 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M3 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M3 ............................... TOTAL Result Count = 0
+RULECHECK 6.1A.M4 ................................. TOTAL Result Count = 0
+RULECHECK 6.1B.M4 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M4 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M4 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M4 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M4 ............................... TOTAL Result Count = 0
+RULECHECK 6.1A.M5 ................................. TOTAL Result Count = 0
+RULECHECK 6.1B.M5 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M5 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M5 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M5 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M5 ............................... TOTAL Result Count = 0
+RULECHECK 6.1A.M6 ................................. TOTAL Result Count = 40
+RULECHECK 6.1B.M6 ................................. TOTAL Result Count = 0
+RULECHECK 6.1C.M6 ................................. TOTAL Result Count = 0
+RULECHECK 6.1D.a.M6 ............................... TOTAL Result Count = 0
+RULECHECK 6.1D.b.M6 ............................... TOTAL Result Count = 0
+RULECHECK 6.1E.a.M6 ............................... TOTAL Result Count = 0
+RULECHECK BDSP4.1AB ............................... TOTAL Result Count = 0
+RULECHECK BDSP4.1C.1 .............................. TOTAL Result Count = 0
+RULECHECK BDSP4.1C.2 .............................. TOTAL Result Count = 0
+RULECHECK BDSP4.1D.a .............................. TOTAL Result Count = 0
+RULECHECK BDSP4.1G.a .............................. TOTAL Result Count = 0
+RULECHECK BDSP4.8AaBaC ............................ TOTAL Result Count = 0
+RULECHECK BDSP4.8D.b1 ............................. TOTAL Result Count = 0
+RULECHECK BDSP4.8D.c1.1 ........................... TOTAL Result Count = 0
+RULECHECK BDSP4.8D.c1.2 ........................... TOTAL Result Count = 0
+RULECHECK BDSP4.8D.c2.1 ........................... TOTAL Result Count = 0
+RULECHECK BDSP4.8E ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.8F ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.8G ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.8H ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.8J ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.8N ................................ TOTAL Result Count = 0
+RULECHECK BDSP4.10D.b ............................. TOTAL Result Count = 0
+RULECHECK BDSP4.12C.a ............................. TOTAL Result Count = 0
+RULECHECK BDSP4.12D ............................... TOTAL Result Count = 0
+RULECHECK BDSP4.12FG .............................. TOTAL Result Count = 0
+RULECHECK BDSP4.13B.a ............................. TOTAL Result Count = 0
+RULECHECK BDSP4.13D.bc ............................ TOTAL Result Count = 0
+RULECHECK BDSP4.14C.cd ............................ TOTAL Result Count = 0
+RULECHECK BDSP.OPC.DIFF ........................... TOTAL Result Count = 0
+RULECHECK BDSP.OPC.POLY ........................... TOTAL Result Count = 0
+RULECHECK BDSP.OPC.M1 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.1AB ............................... TOTAL Result Count = 0
+RULECHECK BLSP4.1C.1 .............................. TOTAL Result Count = 0
+RULECHECK BLSP4.1C.2 .............................. TOTAL Result Count = 0
+RULECHECK BLSP4.1D.a .............................. TOTAL Result Count = 0
+RULECHECK BLSP4.1E ................................ TOTAL Result Count = 0
+RULECHECK BLSP4.1G.a .............................. TOTAL Result Count = 0
+RULECHECK BLSP4.8AaBaC ............................ TOTAL Result Count = 0
+RULECHECK BLSP4.8D.a1 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.8D.a2 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.8D.b1 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.8D.b2 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.8D.c1.1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP4.8D.c1.2 ........................... TOTAL Result Count = 0
+RULECHECK BLSP4.8D.c2.1a .......................... TOTAL Result Count = 0
+RULECHECK BLSP4.8D.c2.1b .......................... TOTAL Result Count = 0
+RULECHECK BLSP4.8E ................................ TOTAL Result Count = 0
+RULECHECK BLSP4.8G ................................ TOTAL Result Count = 0
+RULECHECK BLSP4.8H ................................ TOTAL Result Count = 0
+RULECHECK BLSP4.8N ................................ TOTAL Result Count = 0
+RULECHECK BLSP4.9C.a .............................. TOTAL Result Count = 0
+RULECHECK BLSP4.10D.a ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.10D.b ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.12A ............................... TOTAL Result Count = 0
+RULECHECK BLSP4.12B.1 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.12B.2 ............................. TOTAL Result Count = 0
+RULECHECK BLSP4.12E ............................... TOTAL Result Count = 0
+RULECHECK BLSP4.13A ............................... TOTAL Result Count = 0
+RULECHECK BLSP4.13B.a ............................. TOTAL Result Count = 0
+RULECHECK BLSP.OPC.DIFF ........................... TOTAL Result Count = 0
+RULECHECK BLSP.OPC.POLY ........................... TOTAL Result Count = 0
+RULECHECK BLSP.OPC.M1 ............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.1AB ............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.1C.1 ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.1C.2 ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.1D.a ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.1G.a ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.8AaBaC .......................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.a1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.a2 ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.b1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.c1.1 ......................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.c1.2 ......................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.c2.1a ........................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.8D.c2.1b ........................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.8E .............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.8F .............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.8G .............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.8H .............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.8N .............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.9C.a ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.12A ............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.12B.1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.12B.2 ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.12E ............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.12FG ............................ TOTAL Result Count = 0
+RULECHECK BLSP1_4.13A ............................. TOTAL Result Count = 0
+RULECHECK BLSP1_4.13B.a ........................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.13D.ad .......................... TOTAL Result Count = 0
+RULECHECK BLSP1_4.13D.bc .......................... TOTAL Result Count = 0
+RULECHECK BLSP1.OPC.DIFF .......................... TOTAL Result Count = 0
+RULECHECK BLSP1.OPC.POLY .......................... TOTAL Result Count = 0
+RULECHECK BLSP1.OPC.M1 ............................ TOTAL Result Count = 0
+RULECHECK DP4.1D.a ................................ TOTAL Result Count = 0
+RULECHECK DP4.1G.a ................................ TOTAL Result Count = 0
+RULECHECK DP4.8F .................................. TOTAL Result Count = 0
+RULECHECK DP4.8G .................................. TOTAL Result Count = 0
+RULECHECK DP4.9C.a ................................ TOTAL Result Count = 0
+RULECHECK DP4.9C.b ................................ TOTAL Result Count = 0
+RULECHECK DP4.9D.b ................................ TOTAL Result Count = 0
+RULECHECK DP4.10C.b ............................... TOTAL Result Count = 0
+RULECHECK DP4.10D.a ............................... TOTAL Result Count = 0
+RULECHECK DP4.10D.b ............................... TOTAL Result Count = 0
+RULECHECK DP4.12E ................................. TOTAL Result Count = 0
+RULECHECK DP4.12FG ................................ TOTAL Result Count = 0
+RULECHECK DP4.13A ................................. TOTAL Result Count = 0
+RULECHECK DP4.13B.a.1 ............................. TOTAL Result Count = 0
+RULECHECK DP4.13B.a.2 ............................. TOTAL Result Count = 0
+RULECHECK DP4.13D.bc .............................. TOTAL Result Count = 0
+RULECHECK DP.OPC.M1 ............................... TOTAL Result Count = 0
+RULECHECK DP1_4.1AB ............................... TOTAL Result Count = 0
+RULECHECK DP1_4.1C.1 .............................. TOTAL Result Count = 0
+RULECHECK DP1_4.1C.2 .............................. TOTAL Result Count = 0
+RULECHECK DP1_4.1D.a .............................. TOTAL Result Count = 0
+RULECHECK DP1_4.1G.a .............................. TOTAL Result Count = 0
+RULECHECK DP1_4.8AaBaC ............................ TOTAL Result Count = 0
+RULECHECK DP1_4.8D.b1 ............................. TOTAL Result Count = 0
+RULECHECK DP1_4.8D.c1. ............................ TOTAL Result Count = 0
+RULECHECK DP1_4.8E ................................ TOTAL Result Count = 0
+RULECHECK DP1_4.8F ................................ TOTAL Result Count = 0
+RULECHECK DP1_4.8G ................................ TOTAL Result Count = 0
+RULECHECK DP1_4.8H ................................ TOTAL Result Count = 0
+RULECHECK DP1_4.8J ................................ TOTAL Result Count = 0
+RULECHECK DP1_4.12C.a ............................. TOTAL Result Count = 0
+RULECHECK DP1_4.12FG .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.1AB ............................... TOTAL Result Count = 0
+RULECHECK DP2_4.1C.1 .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.1C.2 .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.1D.a .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.1G.a .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.8AaBaC ............................ TOTAL Result Count = 0
+RULECHECK DP2_4.8D.b1 ............................. TOTAL Result Count = 0
+RULECHECK DP2_4.8D.c1.1 ........................... TOTAL Result Count = 0
+RULECHECK DP2_4.8D.c1.2 ........................... TOTAL Result Count = 0
+RULECHECK DP2_4.8D.c2.1 ........................... TOTAL Result Count = 0
+RULECHECK DP2_4.8E ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.8F ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.8G ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.8H ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.8J ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.8N ................................ TOTAL Result Count = 0
+RULECHECK DP2_4.10D.b ............................. TOTAL Result Count = 0
+RULECHECK DP2_4.12C.a ............................. TOTAL Result Count = 0
+RULECHECK DP2_4.12D ............................... TOTAL Result Count = 0
+RULECHECK DP2_4.12FG .............................. TOTAL Result Count = 0
+RULECHECK DP2_4.13D.bc ............................ TOTAL Result Count = 0
+RULECHECK DP2_4.14C.cd ............................ TOTAL Result Count = 0
+RULECHECK ROM4.12C.a .............................. TOTAL Result Count = 0
+RULECHECK ROM4.12FG ............................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.1AB ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.1C .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.1D.a ............................ TOTAL Result Count = 0
+RULECHECK BLSPLP4.1G.a ............................ TOTAL Result Count = 0
+RULECHECK BLSPLP4.8AaBaC .......................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8D.a1 ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8D.a2 ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8D.b1 ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8D.c1 ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8D.c2.1 ......................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.8E .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.8F .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.8G .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.8H .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.8N .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.9A .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.9B .............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.9C.a ............................ TOTAL Result Count = 0
+RULECHECK BLSPLP4.10B ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.12B ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.12C.a ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.12D ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.12E ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.13A ............................. TOTAL Result Count = 0
+RULECHECK BLSPLP4.13B.a ........................... TOTAL Result Count = 0
+RULECHECK BLSPLP4.14C.cd .......................... TOTAL Result Count = 0
+RULECHECK BLSPLP.OPC.DIFF ......................... TOTAL Result Count = 0
+RULECHECK BLSPLP.OPC.POLY ......................... TOTAL Result Count = 0
+RULECHECK BLSPLP.OPC.M1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1AB ............................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1C.1 ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1C.2 ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1D.a ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1E ............................. TOTAL Result Count = 0
+RULECHECK BLSP_1A4.1G.a ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8AaBaC ......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.a1 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.a2 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.b1 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.b2 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.c1.1 ........................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.c1.2 ........................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.c2.1a ....................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8D.c2.1b ....................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8E ............................. TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8G ............................. TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8H ............................. TOTAL Result Count = 0
+RULECHECK BLSP_1A4.8N ............................. TOTAL Result Count = 0
+RULECHECK BLSP_1A4.9C.a ........................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.10D.a .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.10D.b .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.12A ............................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.12B.1 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.12B.2 .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A4.12E ............................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.13A ............................ TOTAL Result Count = 0
+RULECHECK BLSP_1A4.13B.a .......................... TOTAL Result Count = 0
+RULECHECK BLSP_1A.OPC.DIFF ........................ TOTAL Result Count = 0
+RULECHECK BLSP_1A.OPC.POLY ........................ TOTAL Result Count = 0
+RULECHECK BLSP_1A.OPC.M1 .......................... TOTAL Result Count = 0
+RULECHECK OPC_BLOCK.DIFF .......................... TOTAL Result Count = 0
+RULECHECK OPC_BLOCK.POLY .......................... TOTAL Result Count = 0
+RULECHECK OPC_BLOCK.M1 ............................ TOTAL Result Count = 0
+RULECHECK LOGO_5.1A_LOGO_5.1C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.1B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.2A_LOGO_5.2C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.2B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.3A_LOGO_5.3C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.3B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.4A_LOGO_5.4C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.4B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.5A_LOGO_5.5C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.5B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.6A_LOGO_5.6C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.6B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.7A_LOGO_5.7C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.7B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.8A_LOGO_5.8C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.8B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.8Da .............................. TOTAL Result Count = 0
+RULECHECK LOGO_5.8Db .............................. TOTAL Result Count = 0
+RULECHECK LOGO_5.9A_LOGO_5.9C_suggested ........... TOTAL Result Count = 0
+RULECHECK LOGO_5.9B ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.9D ............................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10A_V1_LOGO_5.10C_V1_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.10B_V1 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Da_V1 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Db_V1 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10A_V2_LOGO_5.10C_V2_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.10B_V2 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Da_V2 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Db_V2 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10A_V3_LOGO_5.10C_V3_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.10B_V3 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Da_V3 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Db_V3 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10A_V4_LOGO_5.10C_V4_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.10B_V4 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Da_V4 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Db_V4 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10A_V5_LOGO_5.10C_V5_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.10B_V5 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Da_V5 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.10Db_V5 .......................... TOTAL Result Count = 0
+RULECHECK LOGO_5.11A_M2_LOGO_5.11C_M2_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.11B_M2 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.11A_M3_LOGO_5.11C_M3_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.11B_M3 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.11A_M4_LOGO_5.11C_M4_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.11B_M4 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.11A_M5_LOGO_5.11C_M5_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.11B_M5 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.12A_M6_LOGO_5.11C_M6_suggested ... TOTAL Result Count = 0
+RULECHECK LOGO_5.12B_M6 ........................... TOTAL Result Count = 0
+RULECHECK LOGO_5.13A_LOGO_5.13C_suggested ......... TOTAL Result Count = 0
+RULECHECK LOGO_5.13B .............................. TOTAL Result Count = 0
+RULECHECK LOGO_5.15C_suggested .................... TOTAL Result Count = 0
+RULECHECK LOGO_5.18A_LOGO_5.18C_suggested ......... TOTAL Result Count = 0
+RULECHECK LOGO_5.18B .............................. TOTAL Result Count = 0
+RULECHECK LOGO_5.19A_LOGO_5.19C_suggested ......... TOTAL Result Count = 0
+RULECHECK LOGO_5.19B .............................. TOTAL Result Count = 0
+RULECHECK LOGO_5.20A_LOGO_5.20C_suggested ......... TOTAL Result Count = 0
+RULECHECK LOGO_5.20B .............................. TOTAL Result Count = 0
+----------------------------------------------------------------------------------
+--- SUMMARY
+---
+TOTAL CPU Time:                  8
+TOTAL REAL Time:                 13
+TOTAL Original Layer Geometries: 332431
+TOTAL DRC RuleChecks Executed:   581
+TOTAL DRC Results Generated:     67
