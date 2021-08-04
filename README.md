@@ -1,0 +1,3 @@
+# Image Signal Processor
+
+Typically, image signal processors in cameras or smart phones help convert Bayer raw images into sRGB images. The traditional pipeline for ISP contains four stages: Demosaic, Denoise, White Balance, and Gamma Correction. Without SRAM, we proposed a highly efficient dataflow to reduce the memory access time and the total processing stages to half of the original process in this project. In addition, we increase the usage of registers to further lower the access to pixel data in traditional SRAM.
